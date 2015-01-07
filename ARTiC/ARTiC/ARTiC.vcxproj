@@ -53,10 +53,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\build\tools\clang\unittests\Tooling;..\..\llvm\tools\clang\unittests\Tooling;..\..\llvm\utils\unittest\googletest\include;..\..\llvm\include;..\..\build\include;..\..\build\tools\clang\include;..\..\llvm\tools\clang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>..\build\Release\lib\LLVMSupport.lib;..\build\Release\lib\gtest.lib;..\build\Release\lib\gtest_main.lib;..\build\Release\lib\clangAST.lib;..\build\Release\lib\clangASTMatchers.lib;..\build\Release\lib\clangBasic.lib;..\build\Release\lib\clangFrontend.lib;..\build\Release\lib\clangLex.lib;..\build\Release\lib\clangRewrite.lib;..\build\Release\lib\clangTooling.lib;..\build\Release\lib\clangToolingCore.lib;..\build\Release\lib\clangParse.lib;..\build\Release\lib\LLVMMCParser.lib;..\build\Release\lib\clangSerialization.lib;..\build\Release\lib\clangSema.lib;..\build\Release\lib\clangEdit.lib;..\build\Release\lib\clangAnalysis.lib;..\build\Release\lib\LLVMBitReader.lib;..\build\Release\lib\clangDriver.lib;..\build\Release\lib\LLVMCore.lib;..\build\Release\lib\LLVMMC.lib;..\build\Release\lib\LLVMOption.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -68,16 +70,19 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\build\tools\clang\unittests\Tooling;..\..\llvm\tools\clang\unittests\Tooling;..\..\llvm\utils\unittest\googletest\include;..\..\llvm\include;..\..\build\include;..\..\build\tools\clang\include;..\..\llvm\tools\clang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>..\..\build\Release\lib\LLVMSupport.lib;..\..\build\Release\lib\gtest.lib;..\..\build\Release\lib\gtest_main.lib;..\..\build\Release\lib\clangAST.lib;..\..\build\Release\lib\clangASTMatchers.lib;..\..\build\Release\lib\clangBasic.lib;..\..\build\Release\lib\clangFrontend.lib;..\..\build\Release\lib\clangLex.lib;..\..\build\Release\lib\clangRewrite.lib;..\..\build\Release\lib\clangTooling.lib;..\..\build\Release\lib\clangToolingCore.lib;..\..\build\Release\lib\clangParse.lib;..\..\build\Release\lib\LLVMMCParser.lib;..\..\build\Release\lib\clangSerialization.lib;..\..\build\Release\lib\clangSema.lib;..\..\build\Release\lib\clangEdit.lib;..\..\build\Release\lib\clangAnalysis.lib;..\..\build\Release\lib\LLVMBitReader.lib;..\..\build\Release\lib\clangDriver.lib;..\..\build\Release\lib\LLVMCore.lib;..\..\build\Release\lib\LLVMMC.lib;..\..\build\Release\lib\LLVMOption.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
