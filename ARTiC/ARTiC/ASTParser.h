@@ -40,6 +40,7 @@ public:
             rewriter.ReplaceText(func->getLocation(), funcName.length(), "add5");
             errs() << "** Rewrote function def: " << funcName << "\n";
         }
+        
         return true;
     }
 
@@ -84,53 +85,9 @@ public:
     virtual void HandleTranslationUnit(ASTContext &Context) {
         /* we can use ASTContext to get the TranslationUnitDecl, which is
         a single Decl that collectively represents the entire source file */
+        printf("AST reading begins ...now!\n");
+
         visitor->TraverseDecl(Context.getTranslationUnitDecl());
     }
-
-    /*
-    // override this to call our ExampleVisitor on each top-level Decl
-    virtual bool HandleTopLevelDecl(DeclGroupRef DG) {
-    // a DeclGroupRef may have multiple Decls, so we iterate through each one
-    for (DeclGroupRef::iterator i = DG.begin(), e = DG.end(); i != e; i++) {
-    Decl *D = *i;
-    visitor->TraverseDecl(D); // recursively visit each AST node in Decl "D"
-    }
-    return true;
-    }
-    */
 };
-
-
-class ExampleFrontendAction : public ASTFrontendAction {
-public:
-    virtual std::unique_ptr<ASTConsumer> CreateASTConsumer(CompilerInstance &CI, StringRef file) {
-        return std::unique_ptr<ASTConsumer>(new ExampleASTConsumer(&CI)); // pass CI pointer to ASTConsumer
-    }
-};
-
-
-
-class ASTParser
-{
-public:
-    ASTParser(){
-        numFunctions = 0;
-    }
-    void Init(int argc, const char** argv)
-    {
-        llvm::cl::OptionCategory our_tool_category("Our tool option");
-        CommonOptionsParser op(argc, argv, our_tool_category);
-        // create a new Clang Tool instance (a LibTooling environment)
-        ClangTool tool(op.getCompilations(), op.getSourcePathList());
-
-        int result = tool.run(newFrontendActionFactory<ExampleFrontendAction>().get());
-
-        errs() << "\nFound " << numFunctions << " functions.\n\n";
-        // print out the rewritten source code ("rewriter" is a global var.)
-        rewriter.getEditBuffer(rewriter.getSourceMgr().getMainFileID()).write(errs());
-    }
-    void Read()
-    {}
-};
-
 #endif
