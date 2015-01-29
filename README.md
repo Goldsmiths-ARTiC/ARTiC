@@ -20,4 +20,6 @@ This is an educational tool that will help people without knowledge of C++ to gi
 
 How to run this project:
 
-- In this repository we have empty the folders LLVM, BUILD and QT. To be able to compile this repository you will have to get LLVM (we suggest git to get it), build it into the BUILD folder (we suggest cmake to do so) and install QT and copy the graphic libraries to the QT folder (we suggest, though, to program with Visual Studio).
+- In this repository we have empty the folders LLVM, BUILD. 
+To be able to compile this repository you will have to get LLVM (we suggest git to get it), build it into the BUILD folder (we suggest cmake to do so)
+- You have to install Qt5.4 on C:\Qt to be able to compile this!
