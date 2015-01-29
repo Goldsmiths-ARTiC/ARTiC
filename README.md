@@ -17,3 +17,7 @@ C++ code visualizer built with LLVM and Clang.
 
 This is an educational tool that will help people without knowledge of C++ to give their first steps into this programming language. It will show them news and different ways to visualize C++ code, helping them to understand programming.
 
+
+How to run this project:
+
+- In this repository we have empty the folders LLVM, BUILD and QT. To be able to compile this repository you will have to get LLVM (we suggest git to get it), build it into the BUILD folder (we suggest cmake to do so) and install QT and copy the graphic libraries to the QT folder (we suggest, though, to program with Visual Studio).
