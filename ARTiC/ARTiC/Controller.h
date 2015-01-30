@@ -25,7 +25,7 @@ public:
     void Loop(void)
     {
         printf("If you see this, this is the main loop.\nThere is no loop at the moment, try and come back later.\n");
-        system("PAUSE");
+        //system("PAUSE");
     }
 
     void SetVisualizer(Visualizer* vArg)
