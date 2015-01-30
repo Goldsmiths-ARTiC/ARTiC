@@ -26,8 +26,8 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -43,7 +43,8 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
+    <LinkIncremental>true</LinkIncremental>
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -64,30 +65,51 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\build\tools\clang\unittests\Tooling;..\..\llvm\tools\clang\unittests\Tooling;..\..\llvm\utils\unittest\googletest\include;..\..\llvm\include;..\..\build\include;..\..\build\tools\clang\include;..\..\llvm\tools\clang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;_WINDOWS;UNICODE;WIN32;QT_NO_DEBUG;QT_OPENGL_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>
+      </SDLCheck>
+      <AdditionalIncludeDirectories>C:\artic\Qt;..\..\build\tools\clang\unittests\Tooling;..\..\llvm\tools\clang\unittests\Tooling;..\..\llvm\utils\unittest\googletest\include;..\..\llvm\include;..\..\build\include;..\..\build\tools\clang\include;..\..\llvm\tools\clang\include;C:\Qt\5.4\msvc2013_opengl\include;C:\Qt\5.4\msvc2013_opengl\include\QtOpenGL;C:\Qt\5.4\msvc2013_opengl\include\QtWidgets;C:\Qt\5.4\msvc2013_opengl\include\QtGui;C:\Qt\5.4\msvc2013_opengl\include\QtCore;release;.;C:\Qt\5.4\msvc2013_opengl\mkspecs\win32-msvc2013;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalOptions>-Zm200 -Zc:strictStrings -w34100 -w34189 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>..\..\build\Release\lib\LLVMSupport.lib;..\..\build\Release\lib\gtest.lib;..\..\build\Release\lib\gtest_main.lib;..\..\build\Release\lib\clangAST.lib;..\..\build\Release\lib\clangASTMatchers.lib;..\..\build\Release\lib\clangBasic.lib;..\..\build\Release\lib\clangFrontend.lib;..\..\build\Release\lib\clangLex.lib;..\..\build\Release\lib\clangRewrite.lib;..\..\build\Release\lib\clangTooling.lib;..\..\build\Release\lib\clangToolingCore.lib;..\..\build\Release\lib\clangParse.lib;..\..\build\Release\lib\LLVMMCParser.lib;..\..\build\Release\lib\clangSerialization.lib;..\..\build\Release\lib\clangSema.lib;..\..\build\Release\lib\clangEdit.lib;..\..\build\Release\lib\clangAnalysis.lib;..\..\build\Release\lib\LLVMBitReader.lib;..\..\build\Release\lib\clangDriver.lib;..\..\build\Release\lib\LLVMCore.lib;..\..\build\Release\lib\LLVMMC.lib;..\..\build\Release\lib\LLVMOption.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>
+      </EnableCOMDATFolding>
+      <OptimizeReferences>
+      </OptimizeReferences>
+      <AdditionalDependencies>..\..\build\Release\lib\LLVMSupport.lib;..\..\build\Release\lib\gtest.lib;..\..\build\Release\lib\gtest_main.lib;..\..\build\Release\lib\clangAST.lib;..\..\build\Release\lib\clangASTMatchers.lib;..\..\build\Release\lib\clangBasic.lib;..\..\build\Release\lib\clangFrontend.lib;..\..\build\Release\lib\clangLex.lib;..\..\build\Release\lib\clangRewrite.lib;..\..\build\Release\lib\clangTooling.lib;..\..\build\Release\lib\clangToolingCore.lib;..\..\build\Release\lib\clangParse.lib;..\..\build\Release\lib\LLVMMCParser.lib;..\..\build\Release\lib\clangSerialization.lib;..\..\build\Release\lib\clangSema.lib;..\..\build\Release\lib\clangEdit.lib;..\..\build\Release\lib\clangAnalysis.lib;..\..\build\Release\lib\LLVMBitReader.lib;..\..\build\Release\lib\clangDriver.lib;..\..\build\Release\lib\LLVMCore.lib;..\..\build\Release\lib\LLVMMC.lib;..\..\build\Release\lib\LLVMOption.lib;glu32.lib;opengl32.lib;gdi32.lib;user32.lib;C:\Qt\5.4\msvc2013_opengl\lib\qtmain.lib;shell32.lib;C:\Qt\5.4\msvc2013_opengl\lib\Qt5OpenGL.lib;C:\Qt\5.4\msvc2013_opengl\lib\Qt5Widgets.lib;C:\Qt\5.4\msvc2013_opengl\lib\Qt5Gui.lib;C:\Qt\5.4\msvc2013_opengl\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Qt\5.4\msvc2013_opengl\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Qt\mainwindow.cpp" />
+    <ClCompile Include="..\..\Qt\myglwidget.cpp" />
+    <ClCompile Include="..\..\Qt\release\moc_mainwindow.cpp" />
+    <ClCompile Include="..\..\Qt\release\moc_myglwidget.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Qt\mainwindow.h" />
+    <ClInclude Include="..\..\Qt\myglwidget.h" />
+    <ClInclude Include="..\..\Qt\ui_mainwindow.h" />
     <ClInclude Include="ASTParser.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Init.h" />
+    <ClInclude Include="TextVisualizer.h" />
+    <ClInclude Include="TypeEnum.h" />
+    <ClInclude Include="Visualizer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Qt\mainwindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

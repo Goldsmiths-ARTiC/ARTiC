@@ -3,6 +3,7 @@
 
 #include "Controller.h"
 #include "ASTParser.h"
+#include "TextVisualizer.h"
 
 class ExampleFrontendAction : public ASTFrontendAction {
 
@@ -32,12 +33,12 @@ public:
         // create a new Clang Tool instance (a LibTooling environment)
         ClangTool tool(op.getCompilations(), op.getSourcePathList());
 
+        TheController::Instance()->SetVisualizer(new TextVisualizer());
+
         int result = tool.run(newFrontendActionFactory<ExampleFrontendAction>().get());
         //After this point our program has stopped executing and we have broken the main loop
 
 
-
-        errs() << "\nFound " << numFunctions << " functions.\n\n";
         // print out the rewritten source code ("rewriter" is a global var.)
 
         printf("The program is about to error if you are running it in visual studio.\nDont panic.\n");
