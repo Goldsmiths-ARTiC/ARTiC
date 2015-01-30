@@ -21,11 +21,11 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionImport_file_triggered()
 {
   QString fileName = QFileDialog::getOpenFileName(this, "Select the file to be analyzed", "", "(File (*.*)");
-  QFileInfo fi = fileName;
-  QString ext = fi.suffix();
+  QFileInfo fi = fileName; //get fileinfo as an input string
+  QString ext = fi.suffix(); //get the extension of the file. test.c will give ext = c
 
   if (!fileName.isEmpty()){
-    if (ext != "c"){
+    if (ext != "c"){ //if its not a c file, we're not interested at the moment
       ui->textBrowser->setText("Wrong file extension, please try a '.c' file.");
     }
     else{
