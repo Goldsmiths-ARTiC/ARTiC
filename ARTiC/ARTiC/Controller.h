@@ -15,7 +15,6 @@ class Controller
 {
 public:
     typedef std::function<void(void*)> VisualFunc;
-public:
     Controller(){}
     Controller(const Controller&) = delete;
     const Controller& operator = (const Controller&) = delete;
