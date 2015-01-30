@@ -7,37 +7,47 @@
 #include "myglwidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+QMainWindow(parent),
+ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+  delete ui;
 }
 
 void MainWindow::on_actionImport_file_triggered()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, "Select the file to be analyzed", "", "(File (*.*)");
+  QString fileName = QFileDialog::getOpenFileName(this, "Select the file to be analyzed", "", "(File (*.*)");
+  QFileInfo fi = fileName;
+  QString ext = fi.suffix();
 
-    //Setting up the three arguments required (name program, name file, two dashes - to avoid using compilation database)
-
-
-    ui->textBrowser->setText("Loading the file: ");
-    ui->textBrowser->append(fileName);
-    QByteArray byteArray = fileName.toUtf8();
-    const char *cStringFname = byteArray.constData();
-    //Imports the file
-    const char *arguments[] = { "ARTiC.exe", cStringFname, "--" };
-    Init::InitEverything(3, (const char**)arguments);
-    ui->statusBar->setStatusTip(fileName);
+  if (!fileName.isEmpty()){
+    if (ext != "c"){
+      ui->textBrowser->setText("Wrong file extension, please try a '.c' file.");
+    }
+    else{
+      //Setting up the three arguments required (name program, name file, two dashes - to avoid using compilation database)
+      ui->textBrowser->setText("Loading the file: ");
+      ui->textBrowser->append(fileName);
+      QByteArray byteArray = fileName.toUtf8();
+      const char *cStringFname = byteArray.constData();
+      //Imports the file
+      const char *arguments[] = { "ARTiC.exe", cStringFname, "--" };
+      Init::InitEverything(3, (const char**)arguments);
+      ui->statusBar->setStatusTip(fileName);
+    }
+  }
+  else{
+    ui->textBrowser->setText("Please pick a file!");
+  }
 }
 
 void MainWindow::on_actionExit_application_triggered()
 {
-    QApplication::exit(0);
+  QApplication::exit(0);
 }
 
 void MainWindow::on_actionAbout_this_project_triggered()
