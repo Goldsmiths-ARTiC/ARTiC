@@ -5,16 +5,17 @@
     
     At the same time QMainWindow will act as an initial interface of the application
     inside QMainWindow will be contained two sub-types of the interface to show the 
+    code of the file imported.
 
     
-    We are hacking the frontend action to execute all our code
-    before exiting.
+          We are hacking the frontend action to execute all our code
+          before exiting.
 
-    Init::InitEverything--\
-                          |->FrontendAction::ExecuteAction-\
-                                                            |-Controller::Loop()
-                          /----------------<---------------/
-                          |-Exit()
+          Init::InitEverything--\
+                                |->FrontendAction::ExecuteAction-\
+                                                                  |-Controller::Loop()
+                                /----------------<---------------/
+                                |-Exit()
 */
 
 
@@ -25,8 +26,6 @@
 
 
 int main(int argc, const char **argv) {
-  //Init::InitEverything(argc,argv);
-  //return 0;
   QApplication a(argc, (char **)argv);
   MainWindow w;
   w.show();
