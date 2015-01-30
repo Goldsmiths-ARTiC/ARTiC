@@ -27,8 +27,11 @@ void MainWindow::on_actionImport_file_triggered()
 
     ui->textBrowser->setText("Loading the file: ");
     ui->textBrowser->append(fileName);
+    QByteArray byteArray = fileName.toUtf8();
+    const char *cStringFname = byteArray.constData();
     //Imports the file
-   // Init::InitEverything(3, (const char**)arguments);
+    const char *arguments[] = { "ARTiC.exe", cStringFname, "--" };
+    Init::InitEverything(3, (const char**)arguments);
     ui->statusBar->setStatusTip(fileName);
 }
 
