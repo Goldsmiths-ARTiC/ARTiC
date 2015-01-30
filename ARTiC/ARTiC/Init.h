@@ -39,8 +39,6 @@ public:
         //After this point our program has stopped executing and we have broken the main loop
 
 
-
-        errs() << "\nFound " << numFunctions << " functions.\n\n";
         // print out the rewritten source code ("rewriter" is a global var.)
 
         printf("The program is about to error if you are running it in visual studio.\nDont panic.\n");

@@ -20,7 +20,6 @@ using namespace clang::tooling;
 using namespace llvm;
 
 Rewriter rewriter;
-int numFunctions;
 
 class ExampleVisitor : public RecursiveASTVisitor<ExampleVisitor> {
 private:

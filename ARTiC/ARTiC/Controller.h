@@ -15,6 +15,7 @@ public:
     typedef std::function<void(void*)> VisualFunc;
 public:
     Controller():shouldExit_(false){}
+
     Controller(const Controller&) = delete;
     const Controller& operator = (const Controller&) = delete;
 
