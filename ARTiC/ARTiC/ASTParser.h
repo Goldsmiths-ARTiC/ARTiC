@@ -25,7 +25,6 @@ int numFunctions;
 class ExampleVisitor : public RecursiveASTVisitor<ExampleVisitor> {
 private:
     ASTContext *astContext; // used for getting additional AST info
-
 public:
     explicit ExampleVisitor(CompilerInstance *CI)
         : astContext(&(CI->getASTContext())) // initialize private members
@@ -34,24 +33,18 @@ public:
     }
 
     virtual bool VisitFunctionDecl(FunctionDecl *func) {
-        numFunctions++;
-        string funcName = func->getNameInfo().getName().getAsString();
-        if (funcName == "do_math") {
-            rewriter.ReplaceText(func->getLocation(), funcName.length(), "add5");
-            errs() << "** Rewrote function def: " << funcName << "\n";
-        }
+        TheController::Instance()->CallFunc(TypeEnum::FuncDecl_Type, func);
+        
         
         return true;
     }
 
     virtual bool VisitStmt(Stmt *st) {
         if (ReturnStmt *ret = dyn_cast<ReturnStmt>(st)) {
-            rewriter.ReplaceText(ret->getRetValue()->getLocStart(), 6, "val");
-            errs() << "** Rewrote ReturnStmt\n";
+            TheController::Instance()->CallFunc(TypeEnum::ReturnStm_Type, st);
         }
         if (CallExpr *call = dyn_cast<CallExpr>(st)) {
-            rewriter.ReplaceText(call->getLocStart(), 7, "add5");
-            errs() << "** Rewrote function call\n";
+            TheController::Instance()->CallFunc(TypeEnum::FuncCall_Type, st);
         }
         return true;
     }

@@ -29,5 +29,14 @@
     <ClInclude Include="Init.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Visualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextVisualizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeEnum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

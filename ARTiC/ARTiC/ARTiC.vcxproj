@@ -88,6 +88,9 @@
     <ClInclude Include="ASTParser.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Init.h" />
+    <ClInclude Include="TextVisualizer.h" />
+    <ClInclude Include="TypeEnum.h" />
+    <ClInclude Include="Visualizer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

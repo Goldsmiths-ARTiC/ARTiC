@@ -3,6 +3,7 @@
 
 #include "Controller.h"
 #include "ASTParser.h"
+#include "TextVisualizer.h"
 
 class ExampleFrontendAction : public ASTFrontendAction {
 
@@ -31,6 +32,8 @@ public:
         CommonOptionsParser op(argc, argv, our_tool_category);
         // create a new Clang Tool instance (a LibTooling environment)
         ClangTool tool(op.getCompilations(), op.getSourcePathList());
+
+        TheController::Instance()->SetVisualizer(new TextVisualizer());
 
         int result = tool.run(newFrontendActionFactory<ExampleFrontendAction>().get());
         //After this point our program has stopped executing and we have broken the main loop
