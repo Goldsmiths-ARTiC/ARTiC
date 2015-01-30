@@ -7,7 +7,10 @@
 static enum TypeEnum {
     FuncDecl_Type,
     VarDecl_Type,
+    MemberVarDecl_Type,
+
+    FuncCall_Type,
+
     ReturnStm_Type,
-    FuncCall_Type
 };
 #endif

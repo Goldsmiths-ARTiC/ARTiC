@@ -38,6 +38,20 @@ public:
         return true;
     }
 
+    virtual bool VisitVarDecl(VarDecl *decl)
+    {
+        StorageClass sc = decl->getStorageClass();
+        if (sc != SC_None)
+        {
+            TheController::Instance()->CallFunc(TypeEnum::MemberVarDecl_Type, decl);
+        }
+        else
+        {
+            TheController::Instance()->CallFunc(TypeEnum::VarDecl_Type, decl);
+        }
+        return false;
+    }
+
     virtual bool VisitStmt(Stmt *st) {
         if (ReturnStmt *ret = dyn_cast<ReturnStmt>(st)) {
             TheController::Instance()->CallFunc(TypeEnum::ReturnStm_Type, st);
@@ -47,20 +61,6 @@ public:
         }
         return true;
     }
-
-    /*
-    virtual bool VisitReturnStmt(ReturnStmt *ret) {
-    rewriter.ReplaceText(ret->getRetValue()->getLocStart(), 6, "val");
-    errs() << "** Rewrote ReturnStmt\n";
-    return true;
-    }
-
-    virtual bool VisitCallExpr(CallExpr *call) {
-    rewriter.ReplaceText(call->getLocStart(), 7, "add5");
-    errs() << "** Rewrote function call\n";
-    return true;
-    }
-    */
 };
 
 class ExampleASTConsumer : public ASTConsumer {
