@@ -41,12 +41,8 @@ public:
 
         // print out the rewritten source code ("rewriter" is a global var.)
 
-        printf("The program is about to error if you are running it in visual studio.\nDont panic.\n");
-        system("PAUSE");
         rewriter.getEditBuffer(rewriter.getSourceMgr().getMainFileID()).write(errs());
 
-        printf("Program is about to end");
-        system("PAUSE");
     }
 };
 
