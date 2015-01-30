@@ -36,7 +36,7 @@ void MainWindow::on_actionImport_file_triggered()
       const char *cStringFname = byteArray.constData();
       //Imports the file
       const char *arguments[] = { "ARTiC.exe", cStringFname, "--" };
-      Init::InitEverything(3, (const char**)arguments);
+      Init::InitEverything(3, (const char**)arguments, ui->myGLWidget);
       ui->statusBar->setStatusTip(fileName);
     }
   }

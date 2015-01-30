@@ -3,9 +3,8 @@
 
 #include <map>
 #include <cstdio>
-#include<functional>
+#include <functional>
 
-//Ryan and Juanmihd make this class!!
 #include "Visualizer.h"
 #include "TypeEnum.h"
 

@@ -68,7 +68,6 @@ void MyGLWidget::setZRotation(int angle)
 void MyGLWidget::initializeGL()
 {
     qglClearColor(Qt::black);
-
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glShadeModel(GL_SMOOTH);

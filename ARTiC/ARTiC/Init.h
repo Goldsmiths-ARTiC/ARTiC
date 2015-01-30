@@ -26,7 +26,8 @@ public:
     //The first function to be called, it creates a frontend action to be executed
     //The application piggybacks on the frontend action, 
     //executing before the AST is deleted
-    static void InitEverything(int argc, const char** argv)
+    //In case that we want to use external interfaces we need to add more information to the controller
+    static void InitEverything(int argc, const char** argv, void * extern_tool = nullptr)
     {
         llvm::cl::OptionCategory our_tool_category("Our tool option");
         CommonOptionsParser op(argc, argv, our_tool_category);
