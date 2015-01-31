@@ -41,7 +41,6 @@ public:
 
 
         // print out the rewritten source code ("rewriter" is a global var.)
-
         rewriter.getEditBuffer(rewriter.getSourceMgr().getMainFileID()).write(errs());
 
     }
