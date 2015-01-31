@@ -50,8 +50,12 @@ void MainWindow::importFile(QString importFile){
       ui->textBrowser->setText(QTVisualizer::get_code()->data());
 
 
-      //QString QFuncs = QString::fromStdString(QTVisualizer::get_functions()->data());
-      //ui->textBrowser->append(QFuncs);
+      // TO DELETE: Note this is just an example!
+      QString functionName_1 = QString(QTVisualizer::get_functions()->at(0)->data());
+      ui->textBrowser->append("\n\n\nAdding the name of a function... \n\n");
+      ui->textBrowser->append(functionName_1);
+      // TO DELETE: Note this is just an example!
+
       //Here will start the process of reading the functions, and sending them to the openGL_VIEW
 
       /* WORK IN PROGRESS! */
