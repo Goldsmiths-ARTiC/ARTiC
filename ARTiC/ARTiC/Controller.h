@@ -53,7 +53,6 @@ public:
     {
         functionMap_[type] = func;
 
-
         //this is so this function can be called staically
         // for example using a global variable you may do...
         // static const bool call=AddFunction(stuff,stuff)

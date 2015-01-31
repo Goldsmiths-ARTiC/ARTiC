@@ -22,102 +22,113 @@ class QTVisualizer :public Visualizer
 {
 public:
   QTVisualizer() :hasPrinted_(false)
-    {}
+  {
+  }
   ~QTVisualizer()
-    {}
+  {}
 
-    ///This function is not called in this application, but it may be called in others
-    // this function will be called from an eventual loop.
-    virtual void Update()override
+  
+
+  ///This function is not called in this application, but it may be called in others
+  // this function will be called from an eventual loop.
+  virtual void Update()override
+  {
+    if (!hasPrinted_)
     {
-        if (!hasPrinted_)
-        {
-          hasPrinted_ = true;
-          for (int i = 0; i < funcs_.size(); ++i)
-          {
-              printf("%s: Function found\n", funcs_[i]->c_str());
-          }
-          printf("Done!\n");
-        }
+      hasPrinted_ = true;
+      for (int i = 0; i < funcs_.size(); ++i)
+      {
+        printf("%s: Function found\n", funcs_[i]->c_str());
+      }
+      printf("Done!\n");
     }
+  }
 
-    ///This is meant to initialization of the Visualizer
-    virtual void Init()override
-    {
-      funcs_.clear();
-      variables_.clear();
-    }
+  ///This is meant to initialization of the Visualizer
+  virtual void Init()override
+  {
+    funcs_.clear();
+    variables_.clear();
+    params_.clear();
+  }
 
-    ///This function will receive a controller and add to the controller the desired functions giving a 'tag' to
-    // be able to access to them later on
-    virtual void SetController(Controller* c)override
-    { 
-        c->AddFunction((Controller::VisualFunc)RegisterFunctionDecl, TypeEnum::FuncDecl_Type);
-        c->AddFunction((Controller::VisualFunc)RegisterReturnCall, TypeEnum::ReturnStm_Type);
-        c->AddFunction((Controller::VisualFunc)RegisterVarDecl, TypeEnum::VarDecl_Type);
-        //We are linking the function that will 'register' the code locally
-        c->AddFunction((Controller::VisualFunc)RegisterCode, TypeEnum::Source_Code);
-    }
+  ///This function will receive a controller and add to the controller the desired functions giving a 'tag' to
+  // be able to access to them later on
+  virtual void SetController(Controller* c)override
+  {
+    c->AddFunction((Controller::VisualFunc)RegisterFunctionDecl, TypeEnum::FuncDecl_Type);
+    c->AddFunction((Controller::VisualFunc)RegisterReturnCall, TypeEnum::ReturnStm_Type);
+    c->AddFunction((Controller::VisualFunc)RegisterVarDecl, TypeEnum::VarDecl_Type);
+    //We are linking the function that will 'register' the code locally
+    c->AddFunction((Controller::VisualFunc)RegisterCode, TypeEnum::Source_Code);
+  }
 
-    ///This function will be called whenever is a FunctionDecl is found in the ASTReader
-    //It will store locally the names of the functions
-    //This can be expandable to store more information from the functionDecl
-    static void RegisterFunctionDecl(void * v)
-    {
-      
-      FunctionDecl* func = (FunctionDecl*)v;
-      funcs_.push_back(new string(func->getNameInfo().getName().getAsString()));
+  ///This function will be called whenever is a FunctionDecl is found in the ASTReader
+  //It will store locally the names of the functions
+  //This can be expandable to store more information from the functionDecl
+  static void RegisterFunctionDecl(void * v)
+  {
+    FunctionDecl* func = (FunctionDecl*)v;
+    funcs_.push_back(new string(func->getNameInfo().getName().getAsString()));
+    for (int i = 0; i < func->getNumParams(); ++i){
+      params_.push_back(new string(func->getParamDecl(i)->getNameAsString()));
     }
+  }
 
-    ///This function will be called whenever is a Return call is found in the ASTReader
-    //Currently it's empty, but potentially could obtain some information from the return
-    static void RegisterReturnCall(void *v)
-    {
-        ReturnStmt* stm = (ReturnStmt*)v;
-        //printf("Return found\n");
-    }
+  ///This function will be called whenever is a Return call is found in the ASTReader
+  //Currently it's empty, but potentially could obtain some information from the return
+  static void RegisterReturnCall(void *v)
+  {
+    ReturnStmt* stm = (ReturnStmt*)v;
+    //printf("Return found\n");
+  }
 
-    ///This function will be called whenever a variable is found in the ASTReader
-    //Currently it's empty, but potentially could obtain some information from the return
-    static void RegisterVarDecl(void *v)
-    {
-        VarDecl* var = (VarDecl*)v;
-        //printf("%s: Variable declared\n", var->getNameAsString().c_str());
-        variables_.push_back(new string(var->getNameAsString().c_str()));
-    }
+  ///This function will be called whenever a variable is found in the ASTReader
+  static void RegisterVarDecl(void *v)
+  {
+    VarDecl* var = (VarDecl*)v;
+    //printf("%s: Variable declared\n", var->getNameAsString().c_str());
+    variables_.push_back(new string(var->getNameAsString().c_str()));
+  }
+  ///This function will be called at the begining of the ASTProcess
+  static void RegisterCode(void * v)
+  {
+    llvm::MemoryBuffer* buffer_temp = (llvm::MemoryBuffer*)v;
+    buffer_ = std::string(buffer_temp->getBufferStart(), buffer_temp->getBufferSize());
+  }
 
-    ///This function will be called at the begining of the ASTProcess
-    static void RegisterCode(void * v)
-    {
-      llvm::MemoryBuffer* buffer_temp = (llvm::MemoryBuffer*)v;
-      buffer_ = std::string(buffer_temp->getBufferStart(), buffer_temp->getBufferSize());
-    }
+  ///This function will return a pointer to the buffer of the code (from the MODEL)
+  ///  This function will return a pointer to the std:string. 
+  static std::string* get_code(){
+    return &buffer_;
+  }
 
-    ///This function will return a pointer to the buffer of the code (from the MODEL)
-    ///  This function will return a pointer to the std:string. 
-    static std::string* get_code(){
-      return &buffer_;
-    }
+  ///This function will return a pointer to a vector of 'functions names'(from the MODEL)
+  static std::vector<std::string*>* get_functions(){
+    return &funcs_;
+  }
 
-    ///This function will return a pointer to a vector of 'functions names'(from the MODEL)
-    static std::vector<std::string*>* get_functions(){
-      return &funcs_;
-    }
-    ///This function will return a pointer to a vector of 'variable names'(from the MODEL)
-    static std::vector<std::string*>* get_variables(){
-      return &variables_;
-    }
+  ///This function will return a pointer to a vector of 'variable names'(from the MODEL)
+  static std::vector<std::string*>* get_params(){
+    return &params_;
+  }
+  ///This function will return a pointer to a vector of 'variable names'(from the MODEL)
+  static std::vector<std::string*>* get_variables(){
+    return &variables_;
+  }
 private:
-    bool hasPrinted_; 
-   //Contains the source code
-    static std::string buffer_;
-   //Contains a vector with the name of functions.
-    //Finding a way to instantiate functionDecl, this could be "improved" to store those
-    static std::vector<std::string*> funcs_;
-    static std::vector<std::string*> variables_;
+  bool hasPrinted_;
+  //Contains the source code
+  static std::string buffer_;
+  //Contains a vector with the name of functions.
+  //Finding a way to instantiate functionDecl, this could be "improved" to store those
+  static std::vector<std::string*> funcs_;
+  static std::vector<std::string*> params_;
+  static std::vector<std::string*> variables_;
 };
 
 std::vector<std::string*> QTVisualizer::funcs_;
+std::vector<std::string*> QTVisualizer::params_;
 std::vector<std::string*> QTVisualizer::variables_;
 std::string QTVisualizer::buffer_;
 

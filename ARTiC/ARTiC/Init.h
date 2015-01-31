@@ -48,8 +48,6 @@ public:
 
         int result = tool.run(newFrontendActionFactory<ExampleFrontendAction>().get());
         //After this point our program has stopped executing and we have broken the main loop
-
-
         // print out the rewritten source code ("rewriter" is a global var.)
 
         //This line has been commented as it may not be necessary to re-write things in the console 

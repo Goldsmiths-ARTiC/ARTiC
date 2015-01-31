@@ -1,10 +1,7 @@
 ///This file will contain a preliminary version of the blobs classes to be drawn in openGL
 /// This is only a visualizer temporal storage, that will contain only the needed information to be drawn by the visualizer
-
-
 #ifndef BLOBS_INCLUDED_H
 #define BLOBS_INCLUDED_H
-
 
 ///This class will be an abstract class that will be used to go through all the blocks and draw them one by one
 class Blob {
