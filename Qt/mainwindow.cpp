@@ -55,6 +55,7 @@ void MainWindow::importFile(QString importFile){
       //for every function found, print each one
       for (int i = 0; i < QTVisualizer::get_functions()->size(); ++i){
         ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
+        ui->myGLWidget->push_function(QTVisualizer::get_functions()->at(i));
       }
 
       //get the number of variables that have been read from the ASTParser

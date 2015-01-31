@@ -180,9 +180,10 @@ void MyGLWidget::draw()
   //We start drawing things
   //We have now to change this to read from the current functions, and set it up as a function to draw functions!
   glPushMatrix();
-  draw_function(&std::string("New function!"));
-  glTranslatef(0.0f, -0.5f, 0.0f); 
-  draw_function(&std::string("New function!"));
+  for (std::string* func_name : func_list){
+    draw_function(func_name);
+    glTranslatef(0.0f, -0.5f, 0.0f);
+  }
   glPopMatrix();
 }
 

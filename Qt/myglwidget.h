@@ -20,6 +20,9 @@ class MyGLWidget : public QGLWidget
     Q_OBJECT
 public:
     explicit MyGLWidget(QWidget *parent = 0);
+    void push_function(std::string * name){
+      func_list.push_back(name);
+    }
     ~MyGLWidget();
 signals:
 
@@ -64,6 +67,9 @@ private:
   float zTrans;
 
   QPoint lastPos; //To be able to track the movement of the mouse
+
+  //Basic information of the code 
+  std::vector<std::string*> func_list;
 };
 
 #endif // MYGLWIDGET_H
