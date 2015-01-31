@@ -8,9 +8,12 @@
 MyGLWidget::MyGLWidget(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
-    xRot = 0;
-    yRot = 0;
-    zRot = 0;
+  xRot = 0;
+  yRot = 0;
+  zRot = 0;
+  xTrans = 0.0f;
+  yTrans = 0.0f;
+  zTrans = -10.0f;
 }
 
 MyGLWidget::~MyGLWidget()
@@ -86,7 +89,7 @@ void MyGLWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //We translate and rotate
     glLoadIdentity();
-    glTranslatef(0.0, 0.0, -10.0);
+    glTranslatef(xTrans, yTrans, zTrans);
     glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
     glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
     glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
@@ -109,9 +112,37 @@ void MyGLWidget::resizeGL(int width, int height)
     glMatrixMode(GL_MODELVIEW);
 }
 
+//This will be used to controle the key events and to move the openGl
+void MyGLWidget::keyPressEvent(QKeyEvent *event)
+{
+  switch (event->key()){
+  case Qt::Key_Up:
+  case Qt::Key_8:
+    yTrans += 0.5f;
+    updateGL();
+    break;
+  case Qt::Key_Down:
+  case Qt::Key_2:
+    yTrans -= 0.5f;
+    updateGL();
+    break;
+  case Qt::Key_Left:
+  case Qt::Key_4:
+    xTrans -= 0.5f;
+    updateGL();
+    break;
+  case Qt::Key_Right:
+  case Qt::Key_6:
+    xTrans += 0.5f;
+    updateGL();
+    break;
+  }
+  //updateGL();
+}
+
 void MyGLWidget::mousePressEvent(QMouseEvent *event)
 {
-    lastPos = event->pos();
+  lastPos = event->pos();
 }
 
 void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
@@ -134,7 +165,7 @@ void MyGLWidget::draw()
 {
     //We start drawing things
   draw_block();
-  glTranslatef(0.0, 5.0, 0.0);
+  glTranslatef(0.0, 3.0, 0.0);
   draw_block();
 }
 
