@@ -30,7 +30,8 @@ protected:
 
   QSize minimumSizeHint() const;
   QSize sizeHint() const;
-  //With this functions we can control the movement and actions of the mouse
+  //With this functions we can control the movement and actions of the mouse and the keyboard
+  void keyPressEvent(QKeyEvent *event);
   void mousePressEvent(QMouseEvent *event);
   void mouseMoveEvent(QMouseEvent *event);
 
@@ -54,7 +55,9 @@ private:
   int xRot;
   int yRot;
   int zRot;
-  int zoomFront;
+  float xTrans;
+  float yTrans;
+  float zTrans;
 
   QPoint lastPos; //To be able to track the movement of the mouse
 };
