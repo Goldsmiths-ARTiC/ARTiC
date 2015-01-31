@@ -296,7 +296,6 @@ void MyGLWidget::push_variable(std::string * name){
 
 //This will clear all the elements, use with caution!
 void MyGLWidget::clear_view(){
-  printf("Clearing the gl!");
   func_list.clear();
-  printf("--->Size of this %i", func_list.size());
+  variable_list.clear();
 }

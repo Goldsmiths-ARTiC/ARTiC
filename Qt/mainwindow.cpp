@@ -57,16 +57,24 @@ void MainWindow::importFile(QString importFile){
       ui->textBrowser->append(numOfFunctions); 
       //for every function found, print each one
 
-      QTreeWidgetItem *item;
-      QTreeWidgetItem *functions_node = new QTreeWidgetItem();
+      QTreeWidgetItem* item;
+      QTreeWidgetItem* functions_node = new QTreeWidgetItem();
       functions_node->setText(0, "Functions:");
       ui->treeWidget->addTopLevelItem(functions_node);
+      int i_param = 0;
       for (int i = 0; i < QTVisualizer::get_functions()->size(); ++i){
         ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
         ui->myGLWidget->push_function(QTVisualizer::get_functions()->at(i));
         item = new QTreeWidgetItem();
         functions_node->addChild(item);
         item->setText(0, QTVisualizer::get_functions()->at(i)->data());
+        int num_params = QTVisualizer::get_num_params()->at(i);
+        QTreeWidgetItem* new_param;
+        for (int j = 0; j < num_params; ++j){
+          new_param = new QTreeWidgetItem();
+          item->addChild(new_param);
+          new_param->setText(0, QTVisualizer::get_params()->at(i_param + j)->data());
+        }
       }
 
       //get the number of variables that have been read from the ASTParser

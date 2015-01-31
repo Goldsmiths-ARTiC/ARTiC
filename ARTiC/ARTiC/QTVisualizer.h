@@ -50,6 +50,7 @@ public:
     funcs_.clear();
     variables_.clear();
     params_.clear();
+    num_params_.clear();
   }
 
   ///This function will receive a controller and add to the controller the desired functions giving a 'tag' to
@@ -73,6 +74,7 @@ public:
     for (int i = 0; i < func->getNumParams(); ++i){
       params_.push_back(new string(func->getParamDecl(i)->getNameAsString()));
     }
+    num_params_.push_back(func->getNumParams());
   }
 
   ///This function will be called whenever is a Return call is found in the ASTReader
@@ -112,9 +114,15 @@ public:
   static std::vector<std::string*>* get_params(){
     return &params_;
   }
+
   ///This function will return a pointer to a vector of 'variable names'(from the MODEL)
   static std::vector<std::string*>* get_variables(){
     return &variables_;
+  }
+
+  ///This function will return a pointer to a vector of 'variable names'(from the MODEL)
+  static std::vector<int>* get_num_params(){
+    return &num_params_;
   }
 private:
   bool hasPrinted_;
@@ -123,11 +131,13 @@ private:
   //Contains a vector with the name of functions.
   //Finding a way to instantiate functionDecl, this could be "improved" to store those
   static std::vector<std::string*> funcs_;
+  static std::vector<int> num_params_;
   static std::vector<std::string*> params_;
   static std::vector<std::string*> variables_;
 };
 
 std::vector<std::string*> QTVisualizer::funcs_;
+std::vector<int> QTVisualizer::num_params_;
 std::vector<std::string*> QTVisualizer::params_;
 std::vector<std::string*> QTVisualizer::variables_;
 std::string QTVisualizer::buffer_;
