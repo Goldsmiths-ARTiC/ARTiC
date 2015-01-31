@@ -4,6 +4,7 @@
 #include <QtOpenGL>
 
 #include "myglwidget.h"
+#include "blobs.h"
 
 MyGLWidget::MyGLWidget(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
