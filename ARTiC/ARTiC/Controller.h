@@ -31,7 +31,7 @@ public:
 
     void Exit()
     {
-    
+      shouldExit_ = true;
     }
 
     void SetVisualizer(Visualizer* vArg)

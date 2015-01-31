@@ -67,6 +67,7 @@ void MyGLWidget::setZRotation(int angle)
 
 void MyGLWidget::initializeGL()
 {
+    //Initializing the openGL canvas
     qglClearColor(Qt::black);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
@@ -74,18 +75,22 @@ void MyGLWidget::initializeGL()
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 
+    //Seting up the lights
     static GLfloat lightPosition[4] = { 0, 0, 10, 1.0 };
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 }
 
 void MyGLWidget::paintGL()
 {
+    //We start to paint, cleaning the canvas
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //We translate and rotate
     glLoadIdentity();
     glTranslatef(0.0, 0.0, -10.0);
     glRotatef(xRot / 16.0, 1.0, 0.0, 0.0);
     glRotatef(yRot / 16.0, 0.0, 1.0, 0.0);
     glRotatef(zRot / 16.0, 0.0, 0.0, 1.0);
+    //And then we draw!
     draw();
 }
 
@@ -127,37 +132,45 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 
 void MyGLWidget::draw()
 {
-    qglColor(Qt::red);
-    glBegin(GL_QUADS);
-        glNormal3f(0,0,-1);
-        glVertex3f(-1,-1,0);
-        glVertex3f(-1,1,0);
-        glVertex3f(1,1,0);
-        glVertex3f(1,-1,0);
+    //We start drawing things
+  draw_block();
+  glTranslatef(0.0, 5.0, 0.0);
+  draw_block();
+}
 
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f(0,-1,0.707);
-        glVertex3f(-1,-1,0);
-        glVertex3f(1,-1,0);
-        glVertex3f(0,0,1.2);
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f(1,0, 0.707);
-        glVertex3f(1,-1,0);
-        glVertex3f(1,1,0);
-        glVertex3f(0,0,1.2);
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f(0,1,0.707);
-        glVertex3f(1,1,0);
-        glVertex3f(-1,1,0);
-        glVertex3f(0,0,1.2);
-    glEnd();
-    glBegin(GL_TRIANGLES);
-        glNormal3f(-1,0,0.707);
-        glVertex3f(-1,1,0);
-        glVertex3f(-1,-1,0);
-        glVertex3f(0,0,1.2);
-    glEnd();
+
+//This function will draw a pyramid!
+void MyGLWidget::draw_block(){
+  qglColor(Qt::red);
+  glBegin(GL_QUADS);
+  glNormal3f(0, 0, -1);
+  glVertex3f(-1, -1, 0);
+  glVertex3f(-1, 1, 0);
+  glVertex3f(1, 1, 0);
+  glVertex3f(1, -1, 0);
+  glEnd();
+  glBegin(GL_TRIANGLES);
+  glNormal3f(0, -1, 0.707);
+  glVertex3f(-1, -1, 0);
+  glVertex3f(1, -1, 0);
+  glVertex3f(0, 0, 1.2);
+  glEnd();
+  glBegin(GL_TRIANGLES);
+  glNormal3f(1, 0, 0.707);
+  glVertex3f(1, -1, 0);
+  glVertex3f(1, 1, 0);
+  glVertex3f(0, 0, 1.2);
+  glEnd();
+  glBegin(GL_TRIANGLES);
+  glNormal3f(0, 1, 0.707);
+  glVertex3f(1, 1, 0);
+  glVertex3f(-1, 1, 0);
+  glVertex3f(0, 0, 1.2);
+  glEnd();
+  glBegin(GL_TRIANGLES);
+  glNormal3f(-1, 0, 0.707);
+  glVertex3f(-1, 1, 0);
+  glVertex3f(-1, -1, 0);
+  glVertex3f(0, 0, 1.2);
+  glEnd();
 }

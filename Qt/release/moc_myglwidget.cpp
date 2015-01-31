@@ -1,10 +1,5 @@
-/****************************************************************************
-** Meta object code from reading C++ file 'myglwidget.h'
-**
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.4.0)
-**
-** WARNING! All changes made in this file will be lost!
-*****************************************************************************/
+/// This file has been expanded from the basis created from the designer. 
+/// It help us control the openGLwidget and would let us add controls to the openGL Canvas from other buttons.
 
 #include "../myglwidget.h"
 #include <QtCore/qbytearray.h>
