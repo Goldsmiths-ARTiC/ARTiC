@@ -1,10 +1,7 @@
-/****************************************************************************
-** Meta object code from reading C++ file 'mainwindow.h'
-**
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.4.0)
-**
-** WARNING! All changes made in this file will be lost!
-*****************************************************************************/
+/// This file has been expanded from the basis created from the designer. 
+/// It would help us edit and change some aspect of the menu that we want to modify.
+/// It will let us as well to modify the user interface without using the Qt Designer.
+
 
 #include "../mainwindow.h"
 #include <QtCore/qbytearray.h>
