@@ -52,6 +52,7 @@ signals:
 
 private:
   void draw_block(float size = 2.0f);
+  void draw_function(std::string * name);
   void draw();
 
   //Basic information of the rotations of the model
