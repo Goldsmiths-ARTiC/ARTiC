@@ -37,7 +37,7 @@ void MainWindow::on_actionImport_file_triggered()
       QByteArray byteArray = fileName.toUtf8();
       const char *cStringFname = byteArray.constData();
 
-      //Imports the file to the model (this needs three parameters. 
+      //Imports the file to the model (this needs three parameters). 
       const char *arguments[] = { "ARTiC.exe", cStringFname, "--" }; //The first is irrelelvant, the second is the name of the file and the third has to be -- to avoid looking for the pdb)
       Init::InitEverything(3, (const char**)arguments);
       ui->statusBar->setStatusTip(fileName);
@@ -46,6 +46,10 @@ void MainWindow::on_actionImport_file_triggered()
       //Reading from the internal Model
         //First we read the code, and draw it in the proper place
       ui->textBrowser->setText(QTVisualizer::get_code()->data());
+
+
+      //QString QFuncs = QString::fromStdString(QTVisualizer::get_functions()->data());
+      //ui->textBrowser->append(QFuncs);
         //Here will start the process of reading the functions, and sending them to the openGL_VIEW
         
               /* WORK IN PROGRESS! */
