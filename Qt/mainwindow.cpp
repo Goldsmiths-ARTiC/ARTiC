@@ -127,8 +127,11 @@ void MainWindow::on_actionRefresh_triggered()
 {
   importFile(import_fileName);
 }
-
+///We want to clear everything
+///Clear the filename, textBrowser and the OpenGLWidget
 void MainWindow::on_actionClear_triggered()
 {
-
+  import_fileName.clear();
+  ui->textBrowser->setText("");
+  ui->myGLWidget->clear_view();
 }
