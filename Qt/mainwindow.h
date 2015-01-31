@@ -36,6 +36,10 @@ private slots:
 
     void on_actionChange_view_triggered();
 
+    void on_actionExport_file_triggered();
+
+    void on_actionRefresh_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

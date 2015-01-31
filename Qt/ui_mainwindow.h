@@ -35,6 +35,7 @@ public:
     QAction *actionAbout_this_project;
     QAction *actionAbout_LLVM_and_clang;
     QAction *actionChange_view;
+    QAction *actionRefresh;
     QWidget *centralWidget;
     MyGLWidget *myGLWidget;
     QTextBrowser *textBrowser;
@@ -63,6 +64,8 @@ public:
         actionAbout_LLVM_and_clang->setObjectName(QStringLiteral("actionAbout_LLVM_and_clang"));
         actionChange_view = new QAction(MainWindow);
         actionChange_view->setObjectName(QStringLiteral("actionChange_view"));
+        actionRefresh = new QAction(MainWindow);
+        actionRefresh->setObjectName(QStringLiteral("actionRefresh"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         myGLWidget = new MyGLWidget(centralWidget);
@@ -104,6 +107,7 @@ public:
         menuFile->addAction(actionExport_file);
         menuFile->addAction(actionExit_application);
         menuView->addAction(actionChange_view);
+        menuView->addAction(actionRefresh);
         menuHelp->addAction(actionAbout_this_project);
         menuHelp->addAction(actionAbout_LLVM_and_clang);
 
@@ -124,6 +128,7 @@ public:
         actionAbout_this_project->setText(QApplication::translate("MainWindow", "About us", 0));
         actionAbout_LLVM_and_clang->setText(QApplication::translate("MainWindow", "About LLVM and clang", 0));
         actionChange_view->setText(QApplication::translate("MainWindow", "Change view", 0));
+        actionRefresh->setText(QApplication::translate("MainWindow", "Refresh", 0));
 #ifndef QT_NO_STATUSTIP
         myGLWidget->setStatusTip(QApplication::translate("MainWindow", "Open a file to see ARTiC in action...", 0));
 #endif // QT_NO_STATUSTIP

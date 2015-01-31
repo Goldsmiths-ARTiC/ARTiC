@@ -11,6 +11,7 @@ QMainWindow(parent),
 ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
+  //We want to have two ways to visualize graphically the AST, and we want to switch between them. We set the openGL invisible first
   ui->myGLWidget->setVisible(false);
 }
 
@@ -63,6 +64,11 @@ void MainWindow::on_actionImport_file_triggered()
   }
 }
 
+void MainWindow::on_actionExport_file_triggered()
+{
+
+}
+
 void MainWindow::on_actionExit_application_triggered()
 {
   QApplication::exit(0);
@@ -80,6 +86,13 @@ void MainWindow::on_actionAbout_LLVM_and_clang_triggered()
 
 void MainWindow::on_actionChange_view_triggered()
 {
+  //Here we change the visibility of the two visualizers of the right. This going to be edited later on
+  //  We would be able to expand this part later on. For now we only offer two views
   ui->myGLWidget->setVisible(!ui->myGLWidget->isVisible());
   ui->treeView->setVisible(!ui->myGLWidget->isVisible());
+}
+
+void MainWindow::on_actionRefresh_triggered()
+{
+
 }
