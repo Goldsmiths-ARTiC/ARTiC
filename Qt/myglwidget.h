@@ -15,6 +15,8 @@
 
 class MyGLWidget : public QGLWidget
 {
+
+  enum {INI_XROT = 0, INI_YROT = 0, INI_ZROT = 0, INI_XTRANS = 0, INI_YTRANS = 0, INI_ZTRANS = -10};
     Q_OBJECT
 public:
     explicit MyGLWidget(QWidget *parent = 0);
@@ -40,6 +42,7 @@ public slots:
   void setXRotation(int angle);
   void setYRotation(int angle);
   void setZRotation(int angle);
+  void resetView();
 
 signals:
   // signaling rotation from mouse movement
@@ -48,7 +51,7 @@ signals:
   void zRotationChanged(int angle);
 
 private:
-  void draw_block();
+  void draw_block(float size = 2.0f);
   void draw();
 
   //Basic information of the rotations of the model

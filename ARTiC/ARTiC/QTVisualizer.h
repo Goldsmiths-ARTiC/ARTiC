@@ -9,7 +9,7 @@
 #include <string>
 
 
-/// @brief This class QTVisualizer has been writen taking into account the example TextVisualizer
+/// This class QTVisualizer has been writen taking into account the example TextVisualizer
 ///
 ///   Until finding a better solution to the 'volatility' of the AST Nodes we have tryed to write 
 ///     an ASTReader that will go through the whole code, calling functions from this visualizer
@@ -26,7 +26,7 @@ public:
   ~QTVisualizer()
     {}
 
-    ///@brief This function is not called in this application, but it may be called in others
+    ///This function is not called in this application, but it may be called in others
     // this function will be called from an eventual loop.
     virtual void Update()override
     {
@@ -41,11 +41,11 @@ public:
         }
     }
 
-    ///@brief This is meant to initialization of the Visualizer
+    ///This is meant to initialization of the Visualizer
     virtual void Init()override
     {}
 
-    ///@brief This function will receive a controller and add to the controller the desired functions giving a 'tag' to
+    ///This function will receive a controller and add to the controller the desired functions giving a 'tag' to
     // be able to access to them later on
     virtual void SetController(Controller* c)override
     {
@@ -56,7 +56,7 @@ public:
         c->AddFunction((Controller::VisualFunc)RegisterCode, TypeEnum::Source_Code);
     }
 
-    ///@brief This function will be called whenever is a FunctionDecl is found in the ASTReader
+    ///This function will be called whenever is a FunctionDecl is found in the ASTReader
     //It will store locally the names of the functions
     //This can be expandable to store more information from the functionDecl
     static void RegisterFunctionDecl(void * v)
@@ -65,7 +65,7 @@ public:
       funcs_.push_back(new string(func->getNameInfo().getName().getAsString()));
     }
 
-    ///@brief This function will be called whenever is a Return call is found in the ASTReader
+    ///This function will be called whenever is a Return call is found in the ASTReader
     //Currently it's empty, but potentially could obtain some information from the return
     static void RegisterReturnCall(void *v)
     {
@@ -73,7 +73,7 @@ public:
         //printf("Return found\n");
     }
 
-    ///@brief This function will be called whenever a variable is found in the ASTReader
+    ///This function will be called whenever a variable is found in the ASTReader
     //Currently it's empty, but potentially could obtain some information from the return
     static void RegisterVarDecl(void *v)
     {
@@ -81,20 +81,20 @@ public:
         //printf("%s: Variable declared\n", var->getNameAsString().c_str());
     }
 
-    ///@brief This function will be called at the begining of the ASTProcess
+    ///This function will be called at the begining of the ASTProcess
     static void RegisterCode(void * v)
     {
       llvm::MemoryBuffer* buffer_temp = (llvm::MemoryBuffer*)v;
       buffer_ = std::string(buffer_temp->getBufferStart(), buffer_temp->getBufferSize());
     }
 
-    ///@brief This function will return a pointer to the buffer of the code (from the MODEL)
+    ///This function will return a pointer to the buffer of the code (from the MODEL)
     ///  This function will return a pointer to the std:string. 
     static std::string* get_code(){
       return &buffer_;
     }
 
-    ///@brief This function will return a pointer to a vector of 'functions names'(from the MODEL)
+    ///This function will return a pointer to a vector of 'functions names'(from the MODEL)
     static std::vector<std::string*>* get_functions(){
       return &funcs_;
     }

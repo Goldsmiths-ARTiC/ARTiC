@@ -8,16 +8,20 @@
 MyGLWidget::MyGLWidget(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
-  xRot = 0;
-  yRot = 0;
-  zRot = 0;
-  xTrans = 0.0f;
-  yTrans = 0.0f;
-  zTrans = -10.0f;
+  resetView();
 }
 
 MyGLWidget::~MyGLWidget()
 {
+}
+
+void MyGLWidget::resetView(){
+  xRot = INI_XROT;
+  yRot = INI_YROT;
+  zRot = INI_ZROT;
+  xTrans = INI_XTRANS;
+  yTrans = INI_YTRANS;
+  zTrans = INI_ZTRANS;
 }
 
 QSize MyGLWidget::minimumSizeHint() const
@@ -107,7 +111,7 @@ void MyGLWidget::resizeGL(int width, int height)
 #ifdef QT_OPENGL_ES_1
     glOrthof(-2, +2, -2, +2, 1.0, 15.0);
 #else
-    glOrtho(-2, +2, -2, +2, 1.0, 15.0);
+    glOrtho(-2, +2, -2, +2, 1.0, 45.0);
 #endif
     glMatrixMode(GL_MODELVIEW);
 }
@@ -137,11 +141,13 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
     updateGL();
     break;
   case Qt::Key_Plus:
-    zTrans += 5.0f;
     updateGL();
     break;
   case Qt::Key_Minus:
-    zTrans -= 5.0f;
+    updateGL();
+    break;
+  case Qt::Key_0:
+    resetView();
     updateGL();
     break;
   }
@@ -171,45 +177,56 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 
 void MyGLWidget::draw()
 {
-    //We start drawing things
-  draw_block();
-  glTranslatef(0.0, 3.0, 0.0);
-  draw_block();
+  //We start drawing things
+  //We have now to change this to read from the current functions, and set it up as a function to draw functions!
+  glPushMatrix();
+  draw_block(1.0f);
+  glDisable(GL_DEPTH_TEST);
+  renderText(0.5f, 0.0f, 0.0f, "New function!");
+  glEnable(GL_DEPTH_TEST);
+  glTranslatef(0.0f, 0.5f, 0.0f);
+  draw_block(1.0f);
+  glDisable(GL_DEPTH_TEST);
+  renderText(0.5f, 0.0f, 0.0f, "New function 2!");
+  glEnable(GL_DEPTH_TEST);
+  glPopMatrix();
 }
 
 
 //This function will draw a pyramid!
-void MyGLWidget::draw_block(){
+void MyGLWidget::draw_block(float size){
+  float scale_size = size*0.4f;
+  float half_size = scale_size*0.5f;
   qglColor(Qt::red);
   glBegin(GL_QUADS);
-  glNormal3f(0, 0, -1);
-  glVertex3f(-1, -1, 0);
-  glVertex3f(-1, 1, 0);
-  glVertex3f(1, 1, 0);
-  glVertex3f(1, -1, 0);
+  glNormal3f(0, 0, -1 * half_size);
+  glVertex3f(-1 * scale_size, -1 * half_size, 0);
+  glVertex3f(-1 * scale_size, 1 * half_size, 0);
+  glVertex3f(1 * scale_size, 1 * half_size, 0);
+  glVertex3f(1 * scale_size, -1 * half_size, 0);
   glEnd();
   glBegin(GL_TRIANGLES);
   glNormal3f(0, -1, 0.707);
-  glVertex3f(-1, -1, 0);
-  glVertex3f(1, -1, 0);
-  glVertex3f(0, 0, 1.2);
+  glVertex3f(-1 * scale_size, -1 * half_size, 0);
+  glVertex3f(1 * scale_size, -1 * half_size, 0);
+  glVertex3f(0, 0, 1.2 * half_size);
   glEnd();
   glBegin(GL_TRIANGLES);
   glNormal3f(1, 0, 0.707);
-  glVertex3f(1, -1, 0);
-  glVertex3f(1, 1, 0);
-  glVertex3f(0, 0, 1.2);
+  glVertex3f(1 * scale_size, -1 * half_size, 0);
+  glVertex3f(1 * scale_size, 1 * half_size, 0);
+  glVertex3f(0, 0, 1.2 * half_size);
   glEnd();
   glBegin(GL_TRIANGLES);
   glNormal3f(0, 1, 0.707);
-  glVertex3f(1, 1, 0);
-  glVertex3f(-1, 1, 0);
-  glVertex3f(0, 0, 1.2);
+  glVertex3f(1 * scale_size, 1 * half_size, 0);
+  glVertex3f(-1 * scale_size, 1 * half_size, 0);
+  glVertex3f(0, 0, 1.2 * half_size);
   glEnd();
   glBegin(GL_TRIANGLES);
   glNormal3f(-1, 0, 0.707);
-  glVertex3f(-1, 1, 0);
-  glVertex3f(-1, -1, 0);
-  glVertex3f(0, 0, 1.2);
+  glVertex3f(-1 * scale_size, 1 * half_size, 0);
+  glVertex3f(-1 * scale_size, -1 * half_size, 0);
+  glVertex3f(0, 0, 1.2 * half_size);
   glEnd();
 }
