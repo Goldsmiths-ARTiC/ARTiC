@@ -20,6 +20,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QTreeView>
 #include <QtWidgets/QWidget>
 #include "myglwidget.h"
 
@@ -33,9 +34,11 @@ public:
     QAction *actionExit_application;
     QAction *actionAbout_this_project;
     QAction *actionAbout_LLVM_and_clang;
+    QAction *actionChange_view;
     QWidget *centralWidget;
     MyGLWidget *myGLWidget;
     QTextBrowser *textBrowser;
+    QTreeView *treeView;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuView;
@@ -58,15 +61,21 @@ public:
         actionAbout_this_project->setObjectName(QStringLiteral("actionAbout_this_project"));
         actionAbout_LLVM_and_clang = new QAction(MainWindow);
         actionAbout_LLVM_and_clang->setObjectName(QStringLiteral("actionAbout_LLVM_and_clang"));
+        actionChange_view = new QAction(MainWindow);
+        actionChange_view->setObjectName(QStringLiteral("actionChange_view"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         myGLWidget = new MyGLWidget(centralWidget);
         myGLWidget->setObjectName(QStringLiteral("myGLWidget"));
+        myGLWidget->setEnabled(true);
         myGLWidget->setGeometry(QRect(570, 30, 401, 491));
         myGLWidget->setMinimumSize(QSize(400, 200));
         textBrowser = new QTextBrowser(centralWidget);
         textBrowser->setObjectName(QStringLiteral("textBrowser"));
         textBrowser->setGeometry(QRect(30, 30, 521, 491));
+        treeView = new QTreeView(centralWidget);
+        treeView->setObjectName(QStringLiteral("treeView"));
+        treeView->setGeometry(QRect(570, 30, 401, 491));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -94,6 +103,7 @@ public:
         menuFile->addAction(actionImport_file);
         menuFile->addAction(actionExport_file);
         menuFile->addAction(actionExit_application);
+        menuView->addAction(actionChange_view);
         menuHelp->addAction(actionAbout_this_project);
         menuHelp->addAction(actionAbout_LLVM_and_clang);
 
@@ -113,6 +123,7 @@ public:
         actionExit_application->setText(QApplication::translate("MainWindow", "Exit application", 0));
         actionAbout_this_project->setText(QApplication::translate("MainWindow", "About us", 0));
         actionAbout_LLVM_and_clang->setText(QApplication::translate("MainWindow", "About LLVM and clang", 0));
+        actionChange_view->setText(QApplication::translate("MainWindow", "Change view", 0));
 #ifndef QT_NO_STATUSTIP
         myGLWidget->setStatusTip(QApplication::translate("MainWindow", "Open a file to see ARTiC in action...", 0));
 #endif // QT_NO_STATUSTIP

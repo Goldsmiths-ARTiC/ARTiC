@@ -11,6 +11,7 @@ QMainWindow(parent),
 ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
+  ui->myGLWidget->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -75,4 +76,10 @@ void MainWindow::on_actionAbout_this_project_triggered()
 void MainWindow::on_actionAbout_LLVM_and_clang_triggered()
 {
 
+}
+
+void MainWindow::on_actionChange_view_triggered()
+{
+  ui->myGLWidget->setVisible(!ui->myGLWidget->isVisible());
+  ui->treeView->setVisible(!ui->myGLWidget->isVisible());
 }

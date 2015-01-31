@@ -34,6 +34,8 @@ private slots:
 
     void on_actionAbout_LLVM_and_clang_triggered();
 
+    void on_actionChange_view_triggered();
+
 private:
     Ui::MainWindow *ui;
 };
