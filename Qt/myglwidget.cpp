@@ -136,6 +136,14 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
     xTrans += 0.5f;
     updateGL();
     break;
+  case Qt::Key_Plus:
+    zTrans += 5.0f;
+    updateGL();
+    break;
+  case Qt::Key_Minus:
+    zTrans -= 5.0f;
+    updateGL();
+    break;
   }
   //updateGL();
 }

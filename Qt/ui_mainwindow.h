@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -21,6 +22,7 @@
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QTreeView>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "myglwidget.h"
 
@@ -37,9 +39,11 @@ public:
     QAction *actionChange_view;
     QAction *actionRefresh;
     QWidget *centralWidget;
-    MyGLWidget *myGLWidget;
+    QHBoxLayout *horizontalLayout;
     QTextBrowser *textBrowser;
+    QVBoxLayout *verticalLayout;
     QTreeView *treeView;
+    MyGLWidget *myGLWidget;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuView;
@@ -68,17 +72,39 @@ public:
         actionRefresh->setObjectName(QStringLiteral("actionRefresh"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        horizontalLayout = new QHBoxLayout(centralWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        textBrowser = new QTextBrowser(centralWidget);
+        textBrowser->setObjectName(QStringLiteral("textBrowser"));
+
+        horizontalLayout->addWidget(textBrowser);
+
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        treeView = new QTreeView(centralWidget);
+        treeView->setObjectName(QStringLiteral("treeView"));
+
+        verticalLayout->addWidget(treeView);
+
         myGLWidget = new MyGLWidget(centralWidget);
         myGLWidget->setObjectName(QStringLiteral("myGLWidget"));
         myGLWidget->setEnabled(true);
-        myGLWidget->setGeometry(QRect(570, 30, 401, 491));
-        myGLWidget->setMinimumSize(QSize(400, 200));
-        textBrowser = new QTextBrowser(centralWidget);
-        textBrowser->setObjectName(QStringLiteral("textBrowser"));
-        textBrowser->setGeometry(QRect(30, 30, 521, 491));
-        treeView = new QTreeView(centralWidget);
-        treeView->setObjectName(QStringLiteral("treeView"));
-        treeView->setGeometry(QRect(570, 30, 401, 491));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(myGLWidget->sizePolicy().hasHeightForWidth());
+        myGLWidget->setSizePolicy(sizePolicy);
+        myGLWidget->setMinimumSize(QSize(0, 0));
+        myGLWidget->setFocusPolicy(Qt::ClickFocus);
+
+        verticalLayout->addWidget(myGLWidget);
+
+
+        horizontalLayout->addLayout(verticalLayout);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));

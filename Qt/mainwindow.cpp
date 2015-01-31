@@ -12,7 +12,7 @@ ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
   //We want to have two ways to visualize graphically the AST, and we want to switch between them. We set the openGL invisible first
-  ui->myGLWidget->setVisible(false);
+  ui->treeView->setVisible(false);
 }
 
 MainWindow::~MainWindow()
