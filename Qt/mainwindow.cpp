@@ -46,6 +46,7 @@ void MainWindow::importFile(QString importFile){
 
       //Now we have to clear all the views (those who needed)
       ui->myGLWidget->clear_view();
+      ui->treeWidget->clear();
 
       //----- This part should be encapsulated, as it's a process of 'interpreting' the imported model of the AST ------//
       //Reading from the internal Model
@@ -55,8 +56,8 @@ void MainWindow::importFile(QString importFile){
       //get the number of functions that have been read from the ASTParser
       QString numOfFunctions = QString("Number of functions found: %1").arg(QTVisualizer::get_functions()->size());
       ui->textBrowser->append(numOfFunctions); 
-      //for every function found, print each one
 
+      //Print the tree!
       QTreeWidgetItem* item;
       QTreeWidgetItem* functions_node = new QTreeWidgetItem();
       functions_node->setText(0, "Functions:");
@@ -144,5 +145,6 @@ void MainWindow::on_actionClear_triggered()
 {
   import_fileName.clear();
   ui->textBrowser->setText("");
+  ui->treeWidget->clear();
   ui->myGLWidget->clear_view();
 }
