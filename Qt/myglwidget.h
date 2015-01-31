@@ -23,6 +23,7 @@ public:
 
     void clear_view();
     void push_function(std::string * name);
+    void push_variable(std::string *name);
     ~MyGLWidget();
 signals:
 
@@ -55,7 +56,9 @@ signals:
 
 private:
   void draw_block(float size = 2.0f);
+  void draw_variable(float size = 0.5f);
   void draw_function(std::string * name);
+  void draw_v(std::string * name);
   void draw();
 
   //Basic information of the rotations of the model
@@ -70,6 +73,8 @@ private:
 
   //Basic information of the code 
   std::vector<std::string*> func_list;
+
+  std::vector<std::string*> variable_list;
 };
 
 #endif // MYGLWIDGET_H

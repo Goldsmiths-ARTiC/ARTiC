@@ -53,7 +53,7 @@ public:
         {
             TheController::Instance()->CallFunc(TypeEnum::VarDecl_Type, decl);
         }
-        return false;
+        return true;
     }
 
     virtual bool VisitStmt(Stmt *st) {
