@@ -53,7 +53,6 @@ void MainWindow::on_actionImport_file_triggered()
         //Here will start the process of reading the functions, and sending them to the openGL_VIEW
         
               /* WORK IN PROGRESS! */
-
       //----- This part should be encapsulated, as it's a process of 'interpreting' the imported model of the AST ------//
     }
   }
