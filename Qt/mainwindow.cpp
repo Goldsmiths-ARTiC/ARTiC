@@ -73,7 +73,7 @@ void MainWindow::importFile(QString importFile){
         for (int j = 0; j < num_params; ++j){
           new_param = new QTreeWidgetItem();
           item->addChild(new_param);
-          new_param->setText(0, QTVisualizer::get_params()->at(i_param + j)->data());
+          new_param->setText(0, QString("Param--> %1").arg(QTVisualizer::get_params()->at(i_param + j)->data()));
         }
       }
 
