@@ -38,9 +38,7 @@ public:
     }
 
     virtual bool VisitFunctionDecl(FunctionDecl *func) {
-        TheController::Instance()->CallFunc(TypeEnum::FuncDecl_Type, func);
-        
-        
+        TheController::Instance()->CallFunc(TypeEnum::FuncDecl_Type, func);  
         return true;
     }
 

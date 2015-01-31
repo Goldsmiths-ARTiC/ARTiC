@@ -187,7 +187,7 @@ void MyGLWidget::draw()
   glPopMatrix();
 }
 
-//******* This part of the code is just an 'ongoingwork'. This afternoon it will be replaced by a FunctionBlob class ********//
+//This part of the code is just an 'ongoingwork'. This afternoon it will be replaced by a FunctionBlob class ********//
 void MyGLWidget::draw_function(std::string * name){
   draw_block(1.0f);
   glDisable(GL_DEPTH_TEST);
