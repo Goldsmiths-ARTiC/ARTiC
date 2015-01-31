@@ -71,6 +71,9 @@ public:
         }
     }
 
+    Visualizer* GetVisualizer(){
+      return v;
+    }
     
 private:
     Visualizer* v;

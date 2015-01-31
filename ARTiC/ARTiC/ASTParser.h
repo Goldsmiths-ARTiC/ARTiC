@@ -28,6 +28,7 @@ public:
     explicit ExampleVisitor(CompilerInstance *CI)
         : astContext(&(CI->getASTContext())) // initialize private members
     {
+        TheController::Instance()->GetVisualizer()->Init();
         rewriter.setSourceMgr(astContext->getSourceManager(), astContext->getLangOpts());
         //Just in the start of the ASTProcess, we open the buffer of the source code and send it to the visualizer
           //This line gets a pointer to the buffer
