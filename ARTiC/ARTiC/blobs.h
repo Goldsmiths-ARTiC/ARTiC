@@ -65,20 +65,8 @@ public:
     if (hover_words)
       glEnable(GL_DEPTH_TEST);
   }
-};
 
-///This is the function blob, it inherits information from the blob to be drawn
-class FunctionBlob : Blob{
-  std::string* return_type;
-  int level_detail;
-
-public:
-  FunctionBlob(){
-    drawable = false;
-    level_detail = 0;
-  }
-
-  void SetBlob(std::string* n_name){
+  void SetName(std::string* n_name){
     name = n_name;
   }
 
@@ -91,32 +79,57 @@ public:
   void SwitchHoverWords(){
     hover_words = !hover_words;
   }
+};
+
+///This is the function blob, it inherits information from the blob to be drawn
+class FunctionBlob : Blob{
+  std::string* return_type;
+  int level_detail;
+  std::vector<ParamBlob*> parameters;
+
+public:
+  FunctionBlob(){
+    drawable = false;
+    level_detail = 0;
+  }
 
   void Draw(QGLWidget* openGL_space) override{
-    glPushMatrix();
-    glTranslatef(x, y, z);
     if (drawable){
+      glPushMatrix();
+      glTranslatef(x, y, z);
       //This will draw the function name and the block
       openGL_space->qglColor(Qt::red);
       DrawBlock(openGL_space);
       //Now we check the level of detail to draw more things
-        //Here we will draw parameters (right), return type (left) and elements contained (behind)
-      if (level_detail <= 1){ //Draw as well the parameters
+      //Here we will draw parameters (right), return type (left)
+      if (level_detail >= 1){ //Draw as well the parameters
         //TODO
       }
-      if (level_detail <= 2){ //Draw as well the return type
+      if (level_detail >= 2){ //Draw as well the return type
         //TODO
       }
-      if (level_detail <= 3){ //Draw the function calls inside the body
-        //TODO
-      }
-      if (level_detail <= 4){ //Draw more elements
-        //TODO
-      }
+      glPopMatrix();
     }
-    glPopMatrix();
+  }
+};
+
+///This is the function blob, it inherits information from the blob to be drawn
+class ParamBlob : Blob{
+
+public:
+  ParamBlob(){
+    drawable = false;
   }
 
+  void Draw(QGLWidget* openGL_space) override{
+    if (drawable){
+      glPushMatrix();
+      //This will draw the function name and the block
+      openGL_space->qglColor(Qt::blue);
+      DrawBlock(openGL_space);
+      glPopMatrix();
+    }
+  }
 };
 
 #endif
