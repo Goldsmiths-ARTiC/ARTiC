@@ -44,16 +44,14 @@ public:
     ///This is meant to initialization of the Visualizer
     virtual void Init()override
     {
-      printf(" \nThe size is... %i", funcs_.size());
       funcs_.clear();
-      printf(" and now... %i\n", funcs_.size());
+      variables_.clear();
     }
 
     ///This function will receive a controller and add to the controller the desired functions giving a 'tag' to
     // be able to access to them later on
     virtual void SetController(Controller* c)override
     { 
-      printf("Adding new functions!!!\n");
         c->AddFunction((Controller::VisualFunc)RegisterFunctionDecl, TypeEnum::FuncDecl_Type);
         c->AddFunction((Controller::VisualFunc)RegisterReturnCall, TypeEnum::ReturnStm_Type);
         c->AddFunction((Controller::VisualFunc)RegisterVarDecl, TypeEnum::VarDecl_Type);
@@ -66,7 +64,6 @@ public:
     //This can be expandable to store more information from the functionDecl
     static void RegisterFunctionDecl(void * v)
     {
-      printf("Adding a new function!!! Num of functions %i\n", funcs_.size());
       
       FunctionDecl* func = (FunctionDecl*)v;
       funcs_.push_back(new string(func->getNameInfo().getName().getAsString()));
