@@ -233,3 +233,15 @@ void MyGLWidget::draw_block(float size){
   glVertex3f(0, 0, 1.2 * half_size);
   glEnd();
 }
+
+//This is to push a new function!
+void MyGLWidget::push_function(std::string * name){
+  func_list.push_back(name);
+}
+
+//This will clear all the elements, use with caution!
+void MyGLWidget::clear_view(){
+  printf("Clearing the gl!");
+  func_list.clear();
+  printf("--->Size of this %i", func_list.size());
+}

@@ -45,6 +45,8 @@ private slots:
 
     void on_actionRefresh_triggered();
 
+    void on_actionClear_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

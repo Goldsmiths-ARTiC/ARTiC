@@ -21,7 +21,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
-#include <QtWidgets/QTreeView>
+#include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "myglwidget.h"
@@ -38,12 +38,13 @@ public:
     QAction *actionAbout_LLVM_and_clang;
     QAction *actionChange_view;
     QAction *actionRefresh;
+    QAction *actionClear;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
     QTextBrowser *textBrowser;
     QVBoxLayout *verticalLayout;
-    QTreeView *treeView;
     MyGLWidget *myGLWidget;
+    QTreeWidget *treeWidget;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuView;
@@ -70,6 +71,8 @@ public:
         actionChange_view->setObjectName(QStringLiteral("actionChange_view"));
         actionRefresh = new QAction(MainWindow);
         actionRefresh->setObjectName(QStringLiteral("actionRefresh"));
+        actionClear = new QAction(MainWindow);
+        actionClear->setObjectName(QStringLiteral("actionClear"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
@@ -84,11 +87,6 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        treeView = new QTreeView(centralWidget);
-        treeView->setObjectName(QStringLiteral("treeView"));
-
-        verticalLayout->addWidget(treeView);
-
         myGLWidget = new MyGLWidget(centralWidget);
         myGLWidget->setObjectName(QStringLiteral("myGLWidget"));
         myGLWidget->setEnabled(true);
@@ -97,10 +95,18 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(myGLWidget->sizePolicy().hasHeightForWidth());
         myGLWidget->setSizePolicy(sizePolicy);
-        myGLWidget->setMinimumSize(QSize(0, 0));
+        myGLWidget->setMinimumSize(QSize(200, 200));
         myGLWidget->setFocusPolicy(Qt::ClickFocus);
 
         verticalLayout->addWidget(myGLWidget);
+
+        treeWidget = new QTreeWidget(centralWidget);
+        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
+        __qtreewidgetitem->setText(0, QStringLiteral("1"));
+        treeWidget->setHeaderItem(__qtreewidgetitem);
+        treeWidget->setObjectName(QStringLiteral("treeWidget"));
+
+        verticalLayout->addWidget(treeWidget);
 
 
         horizontalLayout->addLayout(verticalLayout);
@@ -133,7 +139,9 @@ public:
         menuFile->addAction(actionExport_file);
         menuFile->addAction(actionExit_application);
         menuView->addAction(actionChange_view);
+        menuView->addSeparator();
         menuView->addAction(actionRefresh);
+        menuView->addAction(actionClear);
         menuHelp->addAction(actionAbout_this_project);
         menuHelp->addAction(actionAbout_LLVM_and_clang);
 
@@ -155,6 +163,7 @@ public:
         actionAbout_LLVM_and_clang->setText(QApplication::translate("MainWindow", "About LLVM and clang", 0));
         actionChange_view->setText(QApplication::translate("MainWindow", "Change view", 0));
         actionRefresh->setText(QApplication::translate("MainWindow", "Refresh", 0));
+        actionClear->setText(QApplication::translate("MainWindow", "Clear", 0));
 #ifndef QT_NO_STATUSTIP
         myGLWidget->setStatusTip(QApplication::translate("MainWindow", "Open a file to see ARTiC in action...", 0));
 #endif // QT_NO_STATUSTIP

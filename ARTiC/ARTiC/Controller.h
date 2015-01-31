@@ -40,7 +40,8 @@ public:
         {
             if(v)
             {
-                v->OnInactive();
+              v->Init();
+              v->OnInactive();
             }
             v = vArg;
             v->SetController(this);

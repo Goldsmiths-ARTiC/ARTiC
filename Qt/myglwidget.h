@@ -20,9 +20,9 @@ class MyGLWidget : public QGLWidget
     Q_OBJECT
 public:
     explicit MyGLWidget(QWidget *parent = 0);
-    void push_function(std::string * name){
-      func_list.push_back(name);
-    }
+
+    void clear_view();
+    void push_function(std::string * name);
     ~MyGLWidget();
 signals:
 

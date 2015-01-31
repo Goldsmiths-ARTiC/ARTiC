@@ -12,7 +12,7 @@ ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
   //We want to have two ways to visualize graphically the AST, and we want to switch between them. We set the openGL invisible first
-  ui->treeView->setVisible(false);
+  ui->treeWidget->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -44,6 +44,9 @@ void MainWindow::importFile(QString importFile){
       Init::InitEverything(3, (const char**)arguments);
       ui->statusBar->setStatusTip(fileName);
 
+      //Now we have to clear all the views (those who needed)
+      ui->myGLWidget->clear_view();
+
       //----- This part should be encapsulated, as it's a process of 'interpreting' the imported model of the AST ------//
       //Reading from the internal Model
       //First we read the code, and draw it in the proper place
@@ -65,6 +68,7 @@ void MainWindow::importFile(QString importFile){
       for (int i = 0; i < QTVisualizer::get_variables()->size(); ++i){
         ui->textBrowser->append(QTVisualizer::get_variables()->at(i)->data());
       }
+      
 
       ////get the number of return statements that have been read from the ASTParser
       //QString numOfReturns = QString("Number of return statements found: %1").arg(QTVisualizer::get_functions()->size());
@@ -74,9 +78,6 @@ void MainWindow::importFile(QString importFile){
       //  ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
       //}
 
-      //Here will start the process of reading the functions, and sending them to the openGL_VIEW
-
-      /* WORK IN PROGRESS! */
       //----- This part should be encapsulated, as it's a process of 'interpreting' the imported model of the AST ------//
     }
   }
@@ -119,10 +120,15 @@ void MainWindow::on_actionChange_view_triggered()
   //  We would be able to expand this part later on. For now we only offer two views
   //This will ensure that while one is visible, the other cannot be visible. Only one display at a time.
   ui->myGLWidget->setVisible(!ui->myGLWidget->isVisible());
-  ui->treeView->setVisible(!ui->myGLWidget->isVisible());
+  ui->treeWidget->setVisible(!ui->myGLWidget->isVisible());
 }
 //Just incase the user has changed the file and would like to check any changes, they can refresh.
 void MainWindow::on_actionRefresh_triggered()
 {
   importFile(import_fileName);
+}
+
+void MainWindow::on_actionClear_triggered()
+{
+
 }
