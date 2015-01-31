@@ -76,6 +76,7 @@ void MainWindow::importFile(QString importFile){
           item->addChild(new_param);
           new_param->setText(0, QString("Param--> %1").arg(QTVisualizer::get_params()->at(i_param + j)->data()));
         }
+        i_param += num_params;
       }
 
       //get the number of variables that have been read from the ASTParser
