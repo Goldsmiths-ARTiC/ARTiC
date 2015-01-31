@@ -191,7 +191,7 @@ void MyGLWidget::draw()
 void MyGLWidget::draw_function(std::string * name){
   draw_block(1.0f);
   glDisable(GL_DEPTH_TEST);
-  qglColor(Qt::blue);
+  qglColor(Qt::red);
   renderText(0.5f, 0.0f, 0.0f, name->data());
   glEnable(GL_DEPTH_TEST);
 }

@@ -43,7 +43,9 @@ public:
 
     ///This is meant to initialization of the Visualizer
     virtual void Init()override
-    {}
+    {
+      //We have to be sure that this Visualizer is empty!
+    }
 
     ///This function will receive a controller and add to the controller the desired functions giving a 'tag' to
     // be able to access to them later on
