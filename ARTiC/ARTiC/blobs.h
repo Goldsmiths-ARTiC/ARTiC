@@ -20,6 +20,8 @@ public:
     glEnable(GL_DEPTH_TEST);
   }
 
+  void blob_variable
+
 
   //This function will draw a pyramid!
   void blob_function(float size){

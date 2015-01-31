@@ -70,14 +70,14 @@ void MainWindow::importFile(QString importFile){
       }
 
       //get the number of variables that have been read from the ASTParser
-      QString numOfVariables = QString("Number of variables found: %1").arg(QTVisualizer::get_functions()->size());
+      QString numOfVariables = QString("Number of variables found: %1").arg(QTVisualizer::get_variables()->size());
       ui->textBrowser->append(numOfVariables);
       //for every variable found, print each one
       for (int i = 0; i < QTVisualizer::get_variables()->size(); ++i){
         ui->textBrowser->append(QTVisualizer::get_variables()->at(i)->data());
+        ui->myGLWidget->push_variable(QTVisualizer::get_variables()->at(i));
       }
       
-
       ////get the number of return statements that have been read from the ASTParser
       //QString numOfReturns = QString("Number of return statements found: %1").arg(QTVisualizer::get_functions()->size());
       //ui->textBrowser->append(numOfFunctions);
