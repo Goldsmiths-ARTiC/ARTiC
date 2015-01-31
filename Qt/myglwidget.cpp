@@ -180,16 +180,19 @@ void MyGLWidget::draw()
   //We start drawing things
   //We have now to change this to read from the current functions, and set it up as a function to draw functions!
   glPushMatrix();
-  draw_block(1.0f);
-  glDisable(GL_DEPTH_TEST);
-  renderText(0.5f, 0.0f, 0.0f, "New function!");
-  glEnable(GL_DEPTH_TEST);
-  glTranslatef(0.0f, 0.5f, 0.0f);
-  draw_block(1.0f);
-  glDisable(GL_DEPTH_TEST);
-  renderText(0.5f, 0.0f, 0.0f, "New function 2!");
-  glEnable(GL_DEPTH_TEST);
+  draw_function(&std::string("New function!"));
+  glTranslatef(0.0f, -0.5f, 0.0f); 
+  draw_function(&std::string("New function!"));
   glPopMatrix();
+}
+
+//******* This part of the code is just an 'ongoingwork'. This afternoon it will be replaced by a FunctionBlob class ********//
+void MyGLWidget::draw_function(std::string * name){
+  draw_block(1.0f);
+  glDisable(GL_DEPTH_TEST);
+  qglColor(Qt::blue);
+  renderText(0.5f, 0.0f, 0.0f, name->data());
+  glEnable(GL_DEPTH_TEST);
 }
 
 
@@ -197,7 +200,6 @@ void MyGLWidget::draw()
 void MyGLWidget::draw_block(float size){
   float scale_size = size*0.4f;
   float half_size = scale_size*0.5f;
-  qglColor(Qt::red);
   glBegin(GL_QUADS);
   glNormal3f(0, 0, -1 * half_size);
   glVertex3f(-1 * scale_size, -1 * half_size, 0);
