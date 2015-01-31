@@ -19,8 +19,9 @@ MainWindow::~MainWindow()
 {
   delete ui;
 }
-
-void MainWindow::writeTextBox(QString importFile){
+///This function will be called when a file is selected on the QMainWindow or through the refresh option
+///It will check that the file contains the correct extension for reading and will read it.
+void MainWindow::importFile(QString importFile){
 
   QString fileName = importFile;
   QFileInfo fi = fileName; //get fileinfo as an input string
@@ -67,7 +68,7 @@ void MainWindow::on_actionImport_file_triggered()
 {
   //Open a dialog to receive a new file to be displayed
   import_fileName = QFileDialog::getOpenFileName(this, "Select the file to be displayed", "", "File (*.c *.h)");
-  writeTextBox(import_fileName);
+  importFile(import_fileName);
 }
 
 void MainWindow::on_actionExport_file_triggered()
@@ -101,5 +102,5 @@ void MainWindow::on_actionChange_view_triggered()
 //Just incase the user has changed the file and would like to check any changes, they can refresh.
 void MainWindow::on_actionRefresh_triggered()
 {
-  writeTextBox(import_fileName);
+  importFile(import_fileName);
 }
