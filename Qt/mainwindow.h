@@ -24,6 +24,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private:
+  QString import_fileName;
+  void writeTextBox(QString);
+
 private slots:
 //This set of slots are those that will be called with the menu bar and other buttons
     void on_actionImport_file_triggered();
