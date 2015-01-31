@@ -53,7 +53,7 @@ public:
         {
             TheController::Instance()->CallFunc(TypeEnum::VarDecl_Type, decl);
         }
-        return false;
+        return true;
     }
 
     virtual bool VisitStmt(Stmt *st) {
@@ -81,7 +81,7 @@ public:
     virtual void HandleTranslationUnit(ASTContext &Context) {
         /* we can use ASTContext to get the TranslationUnitDecl, which is
         a single Decl that collectively represents the entire source file */
-        printf("AST reading begins ...now!\n");
+        //printf("AST reading begins ...now!\n");
 
         visitor->TraverseDecl(Context.getTranslationUnitDecl());
     }
