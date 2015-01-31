@@ -79,6 +79,7 @@ public:
     {
         VarDecl* var = (VarDecl*)v;
         //printf("%s: Variable declared\n", var->getNameAsString().c_str());
+        variables_.push_back(new string(var->getNameAsString().c_str()));
     }
 
     ///This function will be called at the begining of the ASTProcess
@@ -98,6 +99,10 @@ public:
     static std::vector<std::string*>* get_functions(){
       return &funcs_;
     }
+    ///This function will return a pointer to a vector of 'variable names'(from the MODEL)
+    static std::vector<std::string*>* get_variables(){
+      return &variables_;
+    }
 private:
     bool hasPrinted_; 
    //Contains the source code
@@ -105,9 +110,11 @@ private:
    //Contains a vector with the name of functions.
     //Finding a way to instantiate functionDecl, this could be "improved" to store those
     static std::vector<std::string*> funcs_;
+    static std::vector<std::string*> variables_;
 };
 
 std::vector<std::string*> QTVisualizer::funcs_;
+std::vector<std::string*> QTVisualizer::variables_;
 std::string QTVisualizer::buffer_;
 
 #endif

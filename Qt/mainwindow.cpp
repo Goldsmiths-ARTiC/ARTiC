@@ -49,12 +49,29 @@ void MainWindow::importFile(QString importFile){
       //First we read the code, and draw it in the proper place
       ui->textBrowser->setText(QTVisualizer::get_code()->data());
 
+      //get the number of functions that have been read from the ASTParser
+      QString numOfFunctions = QString("Number of functions found: %1").arg(QTVisualizer::get_functions()->size());
+      ui->textBrowser->append(numOfFunctions); 
+      //for every function found, print each one
+      for (int i = 0; i < QTVisualizer::get_functions()->size(); ++i){
+        ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
+      }
 
-      // TO DELETE: Note this is just an example!
-      QString functionName_1 = QString(QTVisualizer::get_functions()->at(0)->data());
-      ui->textBrowser->append("\n\n\nAdding the name of a function... \n\n");
-      ui->textBrowser->append(functionName_1);
-      // TO DELETE: Note this is just an example!
+      //get the number of variables that have been read from the ASTParser
+      QString numOfVariables = QString("Number of variables found: %1").arg(QTVisualizer::get_functions()->size());
+      ui->textBrowser->append(numOfVariables);
+      //for every variable found, print each one
+      for (int i = 0; i < QTVisualizer::get_variables()->size(); ++i){
+        ui->textBrowser->append(QTVisualizer::get_variables()->at(i)->data());
+      }
+
+      ////get the number of return statements that have been read from the ASTParser
+      //QString numOfReturns = QString("Number of return statements found: %1").arg(QTVisualizer::get_functions()->size());
+      //ui->textBrowser->append(numOfFunctions);
+      ////for every return statements found, print each one
+      //for (int i = 0; i < QTVisualizer::get_functions()->size(); ++i){
+      //  ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
+      //}
 
       //Here will start the process of reading the functions, and sending them to the openGL_VIEW
 
