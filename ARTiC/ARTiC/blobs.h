@@ -78,6 +78,8 @@ public:
   }
 };
 
+class ParamBlob;
+
 ///This is the function blob, it inherits information from the blob to be drawn
 class FunctionBlob : Blob{
   std::string* return_type;
