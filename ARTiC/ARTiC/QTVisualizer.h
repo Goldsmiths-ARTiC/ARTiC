@@ -93,7 +93,9 @@ public:
   {
     VarDecl* var = (VarDecl*)v;
     //printf("%s: Variable declared\n", var->getNameAsString().c_str());
-    variables_.push_back(new string(var->getNameAsString().c_str()));
+    if (var->isLocalVarDecl()){
+      variables_.push_back(new string(var->getNameAsString().c_str()));
+    }
   }
   ///This function will be called at the begining of the ASTProcess
   static void RegisterCode(void * v)
