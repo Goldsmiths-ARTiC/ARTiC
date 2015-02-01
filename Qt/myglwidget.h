@@ -24,6 +24,7 @@ public:
 
     void clear_view();
     void push_function(std::string * name);
+    void push_params(std::string * name);
     void push_variable(std::string *name);
     ~MyGLWidget();
 signals:

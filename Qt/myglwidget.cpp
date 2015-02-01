@@ -295,8 +295,15 @@ void MyGLWidget::push_function(std::string * name){
 
   FunctionBlob* new_blob = new FunctionBlob();
   new_blob->SetName(name);
-  new_blob->SetPos(0.0f, 1.8f - blobs.size()*0.5f, 0.0f);
+  new_blob->SetPos(0.0f, 1.0f - blobs.size()*0.5f, 0.0f);
   blobs.push_back(new_blob);
+}
+
+//This is to push params to the previous function
+//This will work until we send push_params without params
+void MyGLWidget::push_params(std::string * name){
+  ParamBlob* new_param = new ParamBlob();
+  blobs.back()->AddParameter(new_param);
 }
 
 //This is to push a new variable!
@@ -308,4 +315,5 @@ void MyGLWidget::push_variable(std::string * name){
 void MyGLWidget::clear_view(){
   func_list.clear();
   variable_list.clear();
+  blobs.clear();
 }

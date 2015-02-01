@@ -75,6 +75,7 @@ void MainWindow::importFile(QString importFile){
           new_param = new QTreeWidgetItem();
           item->addChild(new_param);
           new_param->setText(0, QString("Param--> %1").arg(QTVisualizer::get_params()->at(i_param + j)->data()));
+          ui->myGLWidget->push_params(QTVisualizer::get_params()->at(i_param + j));
         }
         i_param += num_params;
       }
@@ -87,7 +88,6 @@ void MainWindow::importFile(QString importFile){
         ui->textBrowser->append(QTVisualizer::get_variables()->at(i)->data());
         ui->myGLWidget->push_variable(QTVisualizer::get_variables()->at(i));
       }
-
     }
   }
   else{

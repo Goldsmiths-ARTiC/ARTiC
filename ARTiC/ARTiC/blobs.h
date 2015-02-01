@@ -4,6 +4,7 @@
 #define BLOBS_INCLUDED_H
 
 ///This class will be an abstract class that will be used to go through all the blocks and draw them one by one
+
 class Blob {
 protected:
   float x;
@@ -90,6 +91,12 @@ public:
     level_detail = 0;
     size = 1.0f;
   }
+  
+  ~FunctionBlob(){
+    for (ParamBlob* param : parameters)
+      delete param;
+    parameters.clear();
+  }
 
   void Draw(QGLWidget* openGL_space){
     glPushMatrix();
@@ -100,12 +107,18 @@ public:
     //Now we check the level of detail to draw more things
     //Here we will draw parameters (right), return type (left)
     if (level_detail >= 1){ //Draw as well the parameters
-      //TODO
+      glTranslatef(0.5f, 0.0f, 0.0f);/*
+      for (ParamBlob* param : parameters)
+        param->Draw(openGL_space);*/
     }
     if (level_detail >= 2){ //Draw as well the return type
       //TODO
     }
     glPopMatrix();
+  }
+
+  void AddParameter(ParamBlob* new_param){
+    parameters.push_back(new_param);
   }
 };
 
