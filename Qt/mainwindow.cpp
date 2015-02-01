@@ -98,10 +98,16 @@ void MainWindow::importFile(QString importFile){
       }
 
       //get the number of variables that have been read from the ASTParser
+      QTreeWidgetItem* variables_nodes = new QTreeWidgetItem();
+      variables_nodes->setText(0, "Variables:");
+      ui->treeWidget->addTopLevelItem(variables_nodes);
       QString numOfVariables = QString("\nNumber of variables found: %1 ").arg(QTVisualizer::get_variables()->size());
       ui->textBrowser->append(numOfVariables);
       //for every variable found, print each one
       for (int i = 0; i < QTVisualizer::get_variables()->size(); ++i){
+        item = new QTreeWidgetItem();
+        variables_nodes->addChild(item);
+        item->setText(0, QTVisualizer::get_variables()->at(i)->data());
         ui->textBrowser->append(QTVisualizer::get_variables()->at(i)->data());
         ui->myGLWidget->push_variable(QTVisualizer::get_variables()->at(i));
       }
