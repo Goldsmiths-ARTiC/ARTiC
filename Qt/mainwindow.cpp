@@ -73,15 +73,22 @@ void MainWindow::importFile(QString importFile){
         int num_params = QTVisualizer::get_num_params()->at(i);
         QTreeWidgetItem* new_param;
         QString Qnum_params;
+        Qnum_params = " => ";
+        Qnum_params.append(QString::number(QTVisualizer::get_num_params()->at(i)));
+        Qnum_params.append(" params : ( ");
         for (int j = 0; j < num_params; ++j){
           new_param = new QTreeWidgetItem();
           item->addChild(new_param);
           new_param->setText(0, QString("Param--> %1").arg(QTVisualizer::get_params()->at(i_param + j)->data()));
           ui->myGLWidget->push_params(QTVisualizer::get_params()->at(i_param + j));
-          Qnum_params = QString::number(QTVisualizer::get_num_params()->at(i));
+          Qnum_params.append(QTVisualizer::get_params()->at(i_param + j)->data());
+          if (j < num_params - 1)
+            Qnum_params.append(" , ");
+          else
+            Qnum_params.append(" ");
         }
         if (num_params > 0){
-          ui->textBrowser->append(QString(QTVisualizer::get_functions()->at(i)->data()) + " --- Parameters found: " + Qnum_params + " (" + QString(QTVisualizer::get_params()->at(i_param)->data()) + ") ");
+          ui->textBrowser->append(QString(QTVisualizer::get_functions()->at(i)->data()) + Qnum_params + ") ");
         }
         else{
           ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
