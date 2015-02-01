@@ -6,24 +6,22 @@ int foo(int i)
     }
 }
 
-class s
+
+int doo(int i)
 {
-    float a;
-
-    int doo(int i)
+    for (int j = 0; j < 10; ++j)
     {
-        for (int j = 0; j < 10; ++j)
-        {
-            i += 1;
-        }
-        return i;
-    };
-
+        i += 1;
+    }
+    return i;
 };
+
 
 int main(void) {
     int a, b, c = 0;
     const int d;
+    a = foo(b);
+    b = doo(a);
     int * e;
     const int* f;
 }
