@@ -21,11 +21,11 @@ using namespace llvm;
 
 Rewriter rewriter;
 
-class ExampleVisitor : public RecursiveASTVisitor<ExampleVisitor> {
+class ARTiCVisitor : public RecursiveASTVisitor<ARTiCVisitor> {
 private:
     ASTContext *astContext; // used for getting additional AST info
 public:
-    explicit ExampleVisitor(CompilerInstance *CI)
+  explicit ARTiCVisitor(CompilerInstance *CI)
         : astContext(&(CI->getASTContext())) // initialize private members
     {
         TheController::Instance()->GetVisualizer()->Init();
@@ -67,14 +67,14 @@ public:
     }
 };
 
-class ExampleASTConsumer : public ASTConsumer {
+class ARTiCASTConsumer : public ASTConsumer {
 private:
-    ExampleVisitor *visitor; // doesn't have to be private
+  ARTiCVisitor *visitor; // doesn't have to be private
 
 public:
     // override the constructor in order to pass CI
-    explicit ExampleASTConsumer(CompilerInstance *CI)
-        : visitor(new ExampleVisitor(CI)) // initialize the visitor
+  explicit ARTiCASTConsumer(CompilerInstance *CI)
+      : visitor(new ARTiCVisitor(CI)) // initialize the visitor
     { }
 
     // override this to call our ExampleVisitor on the entire source file

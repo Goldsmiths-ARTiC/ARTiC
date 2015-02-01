@@ -5,11 +5,11 @@
 #include "ASTParser.h"
 #include "QTVisualizer.h"
 
-class ExampleFrontendAction : public ASTFrontendAction {
+class ARTiCFrontendAction : public ASTFrontendAction {
 
 public:// inherited member functions
     virtual std::unique_ptr<ASTConsumer> CreateASTConsumer(CompilerInstance &CI, StringRef file) {
-        return std::unique_ptr<ASTConsumer>(new ExampleASTConsumer(&CI));
+      return std::unique_ptr<ASTConsumer>(new ARTiCASTConsumer(&CI));
     }
 
     virtual void ExecuteAction()override
@@ -46,7 +46,7 @@ public:
         //We set up the 
         TheController::Instance()->SetVisualizer(new QTVisualizer());
 
-        int result = tool.run(newFrontendActionFactory<ExampleFrontendAction>().get());
+        int result = tool.run(newFrontendActionFactory<ARTiCFrontendAction>().get());
         //After this point our program has stopped executing and we have broken the main loop
         // print out the rewritten source code ("rewriter" is a global var.)
 
