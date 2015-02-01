@@ -58,7 +58,8 @@ public:
     //Draw the tag
     if (hover_words)
       glDisable(GL_DEPTH_TEST);
-    openGL_space->renderText(half_size, 0.0f, 0.0f, name->data());
+    if (name!=nullptr)
+      openGL_space->renderText(half_size, 0.0f, 0.0f, name->data());
     if (hover_words)
       glEnable(GL_DEPTH_TEST);
   }
@@ -78,7 +79,24 @@ public:
   }
 };
 
-class ParamBlob;
+
+///This is the function blob, it inherits information from the blob to be drawn
+class ParamBlob : public Blob{
+
+public:
+  ParamBlob(){
+    size = 0.5f;
+  }
+
+  void Draw(QGLWidget* openGL_space) {
+    glPushMatrix();
+    glTranslatef(x, y, z);
+    //This will draw the function name and the block
+    openGL_space->qglColor(Qt::blue);
+    DrawBlock(openGL_space);
+    glPopMatrix();
+  }
+};
 
 ///This is the function blob, it inherits information from the blob to be drawn
 class FunctionBlob : public Blob{
@@ -91,11 +109,10 @@ public:
     level_detail = 0;
     size = 1.0f;
   }
-  
-  ~FunctionBlob(){
-    for (ParamBlob* param : parameters)
-      delete param;
-    parameters.clear();
+
+  void ChangeLevelDetail(int inc){
+    level_detail += inc;
+    level_detail = level_detail <= 0 ? 0 : level_detail >= 1 ? 1 : level_detail;
   }
 
   void Draw(QGLWidget* openGL_space){
@@ -107,9 +124,8 @@ public:
     //Now we check the level of detail to draw more things
     //Here we will draw parameters (right), return type (left)
     if (level_detail >= 1){ //Draw as well the parameters
-      glTranslatef(0.5f, 0.0f, 0.0f);/*
       for (ParamBlob* param : parameters)
-        param->Draw(openGL_space);*/
+        param->Draw(openGL_space);
     }
     if (level_detail >= 2){ //Draw as well the return type
       //TODO
@@ -120,22 +136,9 @@ public:
   void AddParameter(ParamBlob* new_param){
     parameters.push_back(new_param);
   }
-};
 
-///This is the function blob, it inherits information from the blob to be drawn
-class ParamBlob : Blob{
-
-public:
-  ParamBlob(){
-    size = 0.5f;
-  }
-
-  void Draw(QGLWidget* openGL_space) {
-    glPushMatrix();
-    //This will draw the function name and the block
-    openGL_space->qglColor(Qt::blue);
-    DrawBlock(openGL_space);
-    glPopMatrix();
+  int NumParameters(){
+    return parameters.size();
   }
 };
 

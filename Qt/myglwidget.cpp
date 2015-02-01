@@ -141,9 +141,15 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
     updateGL();
     break;
   case Qt::Key_Plus:
+    for (FunctionBlob * blob : blobs){
+      blob->ChangeLevelDetail(1);
+    }
     updateGL();
     break;
   case Qt::Key_Minus:
+    for (FunctionBlob * blob : blobs){
+      blob->ChangeLevelDetail(-1);
+    }
     updateGL();
     break;
   case Qt::Key_0:
@@ -303,6 +309,8 @@ void MyGLWidget::push_function(std::string * name){
 //This will work until we send push_params without params
 void MyGLWidget::push_params(std::string * name){
   ParamBlob* new_param = new ParamBlob();
+  new_param->SetName(name);
+  new_param->SetPos(0.75f + blobs.back()->NumParameters()*0.75f, 0.0f, 0.0f);
   blobs.back()->AddParameter(new_param);
 }
 
