@@ -141,13 +141,13 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
     updateGL();
     break;
   case Qt::Key_Plus:
-    for (FunctionBlob * blob : blobs){
+    for (FunctionBlob * blob : functionBlobs){
       blob->ChangeLevelDetail(1);
     }
     updateGL();
     break;
   case Qt::Key_Minus:
-    for (FunctionBlob * blob : blobs){
+    for (FunctionBlob * blob : functionBlobs){
       blob->ChangeLevelDetail(-1);
     }
     updateGL();
@@ -186,113 +186,13 @@ void MyGLWidget::draw()
   //We start drawing things
   //We have now to change this to read from the current functions, and set it up as a function to draw functions!
   glPushMatrix();
-  for (FunctionBlob * blob : blobs){
+  for (FunctionBlob * blob : functionBlobs){
     blob->Draw(this);
   }
-  glTranslatef(-2.0f, 0.0f, 0.0f);
-  glPushMatrix();
-  for (std::string* func_name : func_list){
-    draw_function(func_name);
-    glTranslatef(0.0f, -0.5f, 0.0f);
-  }
-  for (std::string* variable_name : variable_list){
-    draw_v(variable_name);
-      glTranslatef(0.0f, -0.5f, 0.0f);
+  for (VariableBlob * blob : variableBlobs){
+    blob->Draw(this);
   }
   glPopMatrix();
-  glPopMatrix();
-}
-
-//This part of the code is just an 'ongoingwork'. This afternoon it will be replaced by a FunctionBlob class ********//
-void MyGLWidget::draw_function(std::string * name){
-  draw_block(1.0f);
-  glDisable(GL_DEPTH_TEST);
-  qglColor(Qt::red);
-  renderText(0.5f, 0.0f, 0.0f, name->data());
-  glEnable(GL_DEPTH_TEST);
-}
-
-//This part of the code is just an 'ongoingwork'. This afternoon it will be replaced by a FunctionBlob class ********//
-void MyGLWidget::draw_v(std::string * name){
-  draw_variable(0.5f);
-  glDisable(GL_DEPTH_TEST);
-  qglColor(Qt::white);
-  renderText(0.5f, 0.0f, 0.0f, name->data());
-  glEnable(GL_DEPTH_TEST);
-}
-
-//This function will draw a pyramid!
-void MyGLWidget::draw_block(float size){
-  float scale_size = size*0.4f;
-  float half_size = scale_size*0.5f;
-  glBegin(GL_QUADS);
-  glNormal3f(0, 0, -1 * half_size);
-  glVertex3f(-1 * scale_size, -1 * half_size, 0);
-  glVertex3f(-1 * scale_size, 1 * half_size, 0);
-  glVertex3f(1 * scale_size, 1 * half_size, 0);
-  glVertex3f(1 * scale_size, -1 * half_size, 0);
-  glEnd();
-  glBegin(GL_TRIANGLES);
-  glNormal3f(0, -1, 0.707);
-  glVertex3f(-1 * scale_size, -1 * half_size, 0);
-  glVertex3f(1 * scale_size, -1 * half_size, 0);
-  glVertex3f(0, 0, 1.2 * half_size);
-  glEnd();
-  glBegin(GL_TRIANGLES);
-  glNormal3f(1, 0, 0.707);
-  glVertex3f(1 * scale_size, -1 * half_size, 0);
-  glVertex3f(1 * scale_size, 1 * half_size, 0);
-  glVertex3f(0, 0, 1.2 * half_size);
-  glEnd();
-  glBegin(GL_TRIANGLES);
-  glNormal3f(0, 1, 0.707);
-  glVertex3f(1 * scale_size, 1 * half_size, 0);
-  glVertex3f(-1 * scale_size, 1 * half_size, 0);
-  glVertex3f(0, 0, 1.2 * half_size);
-  glEnd();
-  glBegin(GL_TRIANGLES);
-  glNormal3f(-1, 0, 0.707);
-  glVertex3f(-1 * scale_size, 1 * half_size, 0);
-  glVertex3f(-1 * scale_size, -1 * half_size, 0);
-  glVertex3f(0, 0, 1.2 * half_size);
-  glEnd();
-}
-
-//This function will draw a pyramid!
-void MyGLWidget::draw_variable(float size){
-  float scale_size = size*0.4f;
-  float half_size = scale_size*0.5f;
-  glBegin(GL_QUADS);
-  glNormal3f(0, 0, -1 * half_size);
-  glVertex3f(-1 * scale_size, -1 * half_size, 0);
-  glVertex3f(-1 * scale_size, 1 * half_size, 0);
-  glVertex3f(1 * scale_size, 1 * half_size, 0);
-  glVertex3f(1 * scale_size, -1 * half_size, 0);
-  glEnd();
-  glBegin(GL_TRIANGLES);
-  glNormal3f(0, -1, 0.707);
-  glVertex3f(-1 * scale_size, -1 * half_size, 0);
-  glVertex3f(1 * scale_size, -1 * half_size, 0);
-  glVertex3f(0, 0, 1.2 * half_size);
-  glEnd();
-  glBegin(GL_TRIANGLES);
-  glNormal3f(1, 0, 0.707);
-  glVertex3f(1 * scale_size, -1 * half_size, 0);
-  glVertex3f(1 * scale_size, 1 * half_size, 0);
-  glVertex3f(0, 0, 1.2 * half_size);
-  glEnd();
-  glBegin(GL_TRIANGLES);
-  glNormal3f(0, 1, 0.707);
-  glVertex3f(1 * scale_size, 1 * half_size, 0);
-  glVertex3f(-1 * scale_size, 1 * half_size, 0);
-  glVertex3f(0, 0, 1.2 * half_size);
-  glEnd();
-  glBegin(GL_TRIANGLES);
-  glNormal3f(-1, 0, 0.707);
-  glVertex3f(-1 * scale_size, 1 * half_size, 0);
-  glVertex3f(-1 * scale_size, -1 * half_size, 0);
-  glVertex3f(0, 0, 1.2 * half_size);
-  glEnd();
 }
 
 //This is to push a new function!
@@ -301,8 +201,8 @@ void MyGLWidget::push_function(std::string * name){
 
   FunctionBlob* new_blob = new FunctionBlob();
   new_blob->SetName(name);
-  new_blob->SetPos(0.0f, 1.0f - blobs.size()*0.5f, 0.0f);
-  blobs.push_back(new_blob);
+  new_blob->SetPos(0.0f, 1.0f - functionBlobs.size()*0.5f, 0.0f);
+  functionBlobs.push_back(new_blob);
 }
 
 //This is to push params to the previous function
@@ -310,18 +210,22 @@ void MyGLWidget::push_function(std::string * name){
 void MyGLWidget::push_params(std::string * name){
   ParamBlob* new_param = new ParamBlob();
   new_param->SetName(name);
-  new_param->SetPos(0.75f + blobs.back()->NumParameters()*0.75f, 0.0f, 0.0f);
-  blobs.back()->AddParameter(new_param);
+  new_param->SetPos(0.75f + functionBlobs.back()->NumParameters()*0.75f, 0.0f, 0.0f);
+  functionBlobs.back()->AddParameter(new_param);
 }
 
 //This is to push a new variable!
 void MyGLWidget::push_variable(std::string * name){
-  variable_list.push_back(name);
+  func_list.push_back(name);
+
+  VariableBlob* new_blob = new VariableBlob();
+  new_blob->SetName(name);
+  new_blob->SetPos(0.0f, 1.0f - functionBlobs.size()*0.5f - variableBlobs.size()*0.5f, 0.0f);
+  variableBlobs.push_back(new_blob);
 }
 
 //This will clear all the elements, use with caution!
 void MyGLWidget::clear_view(){
-  func_list.clear();
-  variable_list.clear();
-  blobs.clear();
+  functionBlobs.clear();
+  variableBlobs.clear();
 }

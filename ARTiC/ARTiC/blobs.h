@@ -12,14 +12,22 @@ protected:
   float z;
   float size;
   bool hover_words;
+  bool detail;
   std::string* name;
 
 public:
-  Blob() : x(0), y(0), z(0), size(0), hover_words(true), name(nullptr) { }
+  Blob() : x(0), y(0), z(0), size(0), hover_words(true), name(nullptr), detail(false) { }
 
   ~Blob();
 
-  void Draw(QGLWidget* openGL_space);
+  void Draw(QGLWidget* openGL_space) {
+    glPushMatrix();
+    glTranslatef(x, y, z);
+    //This will draw the function name and the block
+    openGL_space->qglColor(Qt::green);
+    DrawBlock(openGL_space);
+    glPopMatrix();
+  }
 
   void DrawBlock(QGLWidget* openGL_space){
     float scale_size = size*0.4f;
@@ -77,6 +85,21 @@ public:
   void SwitchHoverWords(){
     hover_words = !hover_words;
   }
+
+  bool HasDetail(){
+    return detail;
+  }
+};
+
+
+///This is the function blob, it inherits information from the blob to be drawn
+class VariableBlob : public Blob{
+
+public:
+  VariableBlob(){
+    size = 0.75f;
+  }
+
 };
 
 
@@ -107,6 +130,7 @@ class FunctionBlob : public Blob{
 public:
   FunctionBlob(){
     level_detail = 0;
+    detail = true;
     size = 1.0f;
   }
 

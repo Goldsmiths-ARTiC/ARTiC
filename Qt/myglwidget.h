@@ -76,7 +76,8 @@ private:
   //Basic information of the code 
   std::vector<std::string*> func_list;
 
-  std::vector<FunctionBlob*> blobs;
+  std::vector<FunctionBlob*> functionBlobs;
+  std::vector<VariableBlob*> variableBlobs;
 
   std::vector<std::string*> variable_list;
 };
