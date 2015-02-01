@@ -10,12 +10,11 @@ protected:
   float y;
   float z;
   float size;
-  bool drawable;
   bool hover_words;
   std::string* name;
 
 public:
-  Blob() : x(0), y(0), z(0), size(0), drawable(false), hover_words(true), name(nullptr) { }
+  Blob() : x(0), y(0), z(0), size(0), hover_words(true), name(nullptr) { }
 
   ~Blob();
 
@@ -88,28 +87,25 @@ class FunctionBlob : public Blob{
 
 public:
   FunctionBlob(){
-    drawable = false;
     level_detail = 0;
     size = 1.0f;
   }
 
   void Draw(QGLWidget* openGL_space){
-    if (drawable){
-      glPushMatrix();
-      glTranslatef(x, y, z);
-      //This will draw the function name and the block
-      openGL_space->qglColor(Qt::red);
-      DrawBlock(openGL_space);
-      //Now we check the level of detail to draw more things
-      //Here we will draw parameters (right), return type (left)
-      if (level_detail >= 1){ //Draw as well the parameters
-        //TODO
-      }
-      if (level_detail >= 2){ //Draw as well the return type
-        //TODO
-      }
-      glPopMatrix();
+    glPushMatrix();
+    glTranslatef(x, y, z);
+    //This will draw the function name and the block
+    openGL_space->qglColor(Qt::red);
+    DrawBlock(openGL_space);
+    //Now we check the level of detail to draw more things
+    //Here we will draw parameters (right), return type (left)
+    if (level_detail >= 1){ //Draw as well the parameters
+      //TODO
     }
+    if (level_detail >= 2){ //Draw as well the return type
+      //TODO
+    }
+    glPopMatrix();
   }
 };
 
@@ -118,18 +114,15 @@ class ParamBlob : Blob{
 
 public:
   ParamBlob(){
-    drawable = false;
     size = 0.5f;
   }
 
   void Draw(QGLWidget* openGL_space) {
-    if (drawable){
-      glPushMatrix();
-      //This will draw the function name and the block
-      openGL_space->qglColor(Qt::blue);
-      DrawBlock(openGL_space);
-      glPopMatrix();
-    }
+    glPushMatrix();
+    //This will draw the function name and the block
+    openGL_space->qglColor(Qt::blue);
+    DrawBlock(openGL_space);
+    glPopMatrix();
   }
 };
 

@@ -76,7 +76,6 @@ public:
         params_.push_back(new string(func->getParamDecl(i)->getNameAsString()));
       }
     }
-    funcsandparams_.push_back(fullFunctionS);
     num_params_.push_back(func->getNumParams());
 
   }

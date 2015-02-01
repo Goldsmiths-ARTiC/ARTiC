@@ -183,14 +183,17 @@ void MyGLWidget::draw()
   for (FunctionBlob * blob : blobs){
     blob->Draw(this);
   }
+  glTranslatef(-2.0f, 0.0f, 0.0f);
+  glPushMatrix();
   for (std::string* func_name : func_list){
     draw_function(func_name);
-    glTranslatef(0.0f, -0.5f, 2.0f);
+    glTranslatef(0.0f, -0.5f, 0.0f);
   }
   for (std::string* variable_name : variable_list){
     draw_v(variable_name);
-      glTranslatef(0.0f, -0.5f, 2.0f);
-    }
+      glTranslatef(0.0f, -0.5f, 0.0f);
+  }
+  glPopMatrix();
   glPopMatrix();
 }
 
@@ -292,7 +295,7 @@ void MyGLWidget::push_function(std::string * name){
 
   FunctionBlob* new_blob = new FunctionBlob();
   new_blob->SetName(name);
-  new_blob->SetPos(0.0f, 2.0f - blobs.size()*0.5f, 0.0f);
+  new_blob->SetPos(0.0f, 1.8f - blobs.size()*0.5f, 0.0f);
   blobs.push_back(new_blob);
 }
 
