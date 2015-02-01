@@ -71,14 +71,10 @@ public:
   {
     FunctionDecl* func = (FunctionDecl*)v;
     funcs_.push_back(new string(func->getNameInfo().getName().getAsString()));
-    std::string fullFunctionS = func->getNameInfo().getName().getAsString();
     if (func->getNumParams() > 0){
-      fullFunctionS.append(" ----> Parameters Found: %i (", func->getNumParams());
       for (int i = 0; i < func->getNumParams(); ++i){
-        fullFunctionS.append(func->getParamDecl(i)->getNameAsString());
         params_.push_back(new string(func->getParamDecl(i)->getNameAsString()));
       }
-      fullFunctionS.append(" )");
     }
     num_params_.push_back(func->getNumParams());
 
@@ -122,11 +118,6 @@ public:
     return &params_;
   }
 
-  ///This function will return a pointer to a vector of 'parameter names'(from the MODEL)
-  static std::vector<std::string*>* get_full_function(){
-    return &funcsandparams_;
-  }
-
   ///This function will return a pointer to a vector of 'variable names'(from the MODEL)
   static std::vector<std::string*>* get_variables(){
     return &variables_;
@@ -143,14 +134,12 @@ private:
   //Contains a vector with the name of functions.
   //Finding a way to instantiate functionDecl, this could be "improved" to store those
   static std::vector<std::string*> funcs_;
-  static std::vector<std::string*> funcsandparams_;
   static std::vector<int> num_params_;
   static std::vector<std::string*> params_;
   static std::vector<std::string*> variables_;
 };
 
 std::vector<std::string*> QTVisualizer::funcs_;
-std::vector<std::string*> QTVisualizer::funcsandparams_;
 std::vector<int> QTVisualizer::num_params_;
 std::vector<std::string*> QTVisualizer::params_;
 std::vector<std::string*> QTVisualizer::variables_;
