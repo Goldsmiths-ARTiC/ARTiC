@@ -30,8 +30,8 @@ void MainWindow::importFile(QString importFile){
 
   //We check that the file it's not empty!
   if (!fileName.isEmpty()){
-    if (ext != "c" && ext != "h"){ //if its not a c file, we're not interested at the moment
-      ui->textBrowser->setText("Wrong file extension, please try a '.c' or a '.h' file.");
+    if (ext != "c" && ext != "h" && ext != "cpp"){ //if its not a c file, we're not interested at the moment
+      ui->textBrowser->setText("Wrong file extension, please try a '.cpp', '.c' or a '.h' file.");
     }
     else{
       //Setting up the three arguments required (name program, name file, two dashes - to avoid using compilation database)
@@ -52,55 +52,69 @@ void MainWindow::importFile(QString importFile){
       //----- This part should be encapsulated, as it's a process of 'interpreting' the imported model of the AST ------//
       //Reading from the internal Model
       //First we read the code, and draw it in the proper place
-      ui->textBrowser->setText(QTVisualizer::get_code()->data());
+      ui->textBrowser->setTextColor(QColor(0, 150, 0));
+      ui->textBrowser->setText("--------------------------------------------------------------------------------------------------");
+      ui->textBrowser->append("\t\tSTARTING SOURCE CODE");
+      ui->textBrowser->append("--------------------------------------------------------------------------------------------------\n\n");
+      ui->textBrowser->setTextColor(QColor(15, 200, 15));
+      ui->textBrowser->append(QTVisualizer::get_code()->data());
+      ui->textBrowser->setTextColor(QColor(0, 150, 0));
+      ui->textBrowser->append("\n--------------------------------------------------------------------------------------------------");
+      ui->textBrowser->append("\t\tEND OF SOURCE CODE");
+      ui->textBrowser->append("--------------------------------------------------------------------------------------------------\n\n");
+      ui->textBrowser->setTextColor(QColor(0, 0, 0));
 
       //get the number of functions that have been read from the ASTParser
       QString numOfFunctions = QString("Number of functions found: %1").arg(QTVisualizer::get_functions()->size());
       ui->textBrowser->append(numOfFunctions);
 
-      //Obtain the information from the model to visualize in the different visualizators
-
-      //Initializing stuff for the treeview and setting up the functions
+      //Read the info from the interface
       QTreeWidgetItem* item;
-      QTreeWidgetItem* functions_node = new QTreeWidgetItem();
+      QTreeWidgetItem* functions_node = new QTreeWidgetItem(); 
+
       functions_node->setText(0, "Functions:");
+
       ui->treeWidget->addTopLevelItem(functions_node);
       int i_param = 0;
-      //Read all the functions
       for (int i = 0; i < QTVisualizer::get_functions()->size(); ++i){
-        //Send the function to the openGL visualizer
-        ui->myGLWidget->push_function(QTVisualizer::get_functions()->at(i));
-        //Send the function to the text visualizer
-        item->setText(0, QTVisualizer::get_functions()->at(i)->data());
-        //Initializing variable for the treeview
+        //Get function and num of params
+        std::string* name_funcion = QTVisualizer::get_functions()->at(i);
+        int num_params = QTVisualizer::get_num_params()->at(i);
+        //Send function to openGL view
+        ui->myGLWidget->push_function(name_funcion);
+        //Send function to tree view
         item = new QTreeWidgetItem();
         functions_node->addChild(item);
-        int num_params = QTVisualizer::get_num_params()->at(i);
+        item->setText(0, name_funcion->data());
+        //Preparing to read params
         QTreeWidgetItem* new_param;
-        //Preparing the information to be writen in the text
-        QString Qnum_params;
-        Qnum_params = " => ";
+        //Preparing for the text view
+        QString Qnum_params = " => ";
         Qnum_params.append(QString::number(QTVisualizer::get_num_params()->at(i)));
         Qnum_params.append(" params : ( ");
-        //Checking the parameters of the function
+        //Loop to read the params
         for (int j = 0; j < num_params; ++j){
-          //Send the parameters to the openGL
-          ui->myGLWidget->push_params(QTVisualizer::get_params()->at(i_param + j));
-          //Write the params on the tree
+          //Read param
+          std::string* name_param = QTVisualizer::get_params()->at(i_param + j);
+          //Send param to the opengl view
+          ui->myGLWidget->push_params(name_param);
+          //Write param to the tree view
           new_param = new QTreeWidgetItem();
           item->addChild(new_param);
-          new_param->setText(0, QString("Param--> %1").arg(QTVisualizer::get_params()->at(i_param + j)->data()));
-          Qnum_params.append(QTVisualizer::get_params()->at(i_param + j)->data());
+          new_param->setText(0, QString("Param--> %1").arg(name_param->data()));
+          //Append param to the text view
+          Qnum_params.append(name_param->data());
           if (j < num_params - 1)
             Qnum_params.append(" , ");
           else
             Qnum_params.append(" ");
         }
+        //Send text to the view mode, depending on the number of params
         if (num_params > 0){
-          ui->textBrowser->append(QString(QTVisualizer::get_functions()->at(i)->data()) + Qnum_params + ") ");
+          ui->textBrowser->append(QString(name_funcion->data()) + Qnum_params + ") ");
         }
         else{
-          ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
+          ui->textBrowser->append(name_funcion->data());
         }
         Qnum_params.clear();
         i_param += num_params;
@@ -110,15 +124,21 @@ void MainWindow::importFile(QString importFile){
       QTreeWidgetItem* variables_nodes = new QTreeWidgetItem();
       variables_nodes->setText(0, "Variables:");
       ui->treeWidget->addTopLevelItem(variables_nodes);
+      //Sending to the text view the number of variables
       QString numOfVariables = QString("\nNumber of variables found: %1 ").arg(QTVisualizer::get_variables()->size());
-      ui->textBrowser->append(numOfVariables);
+      ui->textBrowser->append(numOfVariables); 
       //for every variable found, print each one
       for (int i = 0; i < QTVisualizer::get_variables()->size(); ++i){
+        //Obtain the variable from the interface
+        std::string* variable_name = QTVisualizer::get_variables()->at(i);
+        //Sending the variable to the tree view
         item = new QTreeWidgetItem();
         variables_nodes->addChild(item);
-        item->setText(0, QTVisualizer::get_variables()->at(i)->data());
-        ui->textBrowser->append(QTVisualizer::get_variables()->at(i)->data());
-        ui->myGLWidget->push_variable(QTVisualizer::get_variables()->at(i));
+        item->setText(0, variable_name->data());
+        //Sending the variable to the text view
+        ui->textBrowser->append(variable_name->data());
+        //Sending the variable to the openGL view
+        ui->myGLWidget->push_variable(variable_name);
       }
     }
   }
@@ -131,7 +151,7 @@ void MainWindow::importFile(QString importFile){
 void MainWindow::on_actionImport_file_triggered()
 {
   //Open a dialog to receive a new file to be displayed
-  import_fileName = QFileDialog::getOpenFileName(this, "Select the file to be displayed", "", "File (*.c *.h)");
+  import_fileName = QFileDialog::getOpenFileName(this, "Select the file to be displayed", "", "File (*.cpp  *.c *.h)");
   importFile(import_fileName);
 }
 

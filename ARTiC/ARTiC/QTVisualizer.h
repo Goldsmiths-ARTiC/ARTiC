@@ -10,6 +10,7 @@
 
 
 /// This class QTVisualizer has been writen taking into account the example TextVisualizer
+///   This class is an interface for the QTFramework.
 ///
 ///   Until finding a better solution to the 'volatility' of the AST Nodes we have tryed to write 
 ///     an ASTReader that will go through the whole code, calling functions from this visualizer
