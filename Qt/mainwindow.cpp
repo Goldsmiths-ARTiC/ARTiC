@@ -64,7 +64,8 @@ void MainWindow::importFile(QString importFile){
       ui->treeWidget->addTopLevelItem(functions_node);
       int i_param = 0;
       for (int i = 0; i < QTVisualizer::get_functions()->size(); ++i){
-        ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
+        //ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
+        //ui->textBrowser->append(QString(QTVisualizer::get_functions()->at(i)->data()) + " --- Parameters found: " + QString(QTVisualizer::get_params()->at(i)->data()));
         ui->myGLWidget->push_function(QTVisualizer::get_functions()->at(i));
         item = new QTreeWidgetItem();
         functions_node->addChild(item);
