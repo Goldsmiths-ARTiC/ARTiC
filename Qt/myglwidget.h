@@ -4,7 +4,6 @@
 #define MYGLWIDGET_H
 
 #include <QGLWidget>
-
 #include "blobs.h"
 /// @brief This MyGLWidget is our own widget made with the QGLWidget base.
 ///   Due to the time of the projects, we've opted to used this interface and

@@ -152,7 +152,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "ARTiC v0.1", 0));
 #ifndef QT_NO_STATUSTIP
         MainWindow->setStatusTip(QApplication::translate("MainWindow", "Open a file to see ARTiC in action...", 0));
 #endif // QT_NO_STATUSTIP

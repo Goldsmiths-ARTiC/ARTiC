@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 QMainWindow(parent),
 ui(new Ui::MainWindow)
 {
+  setWindowTitle("ARTiC v0.1");
   ui->setupUi(this);
   //We want to have two ways to visualize graphically the AST, and we want to switch between them. We set the openGL invisible first
   ui->treeWidget->setVisible(false);

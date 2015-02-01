@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ARTiC v0.1</string>
   </property>
   <property name="statusTip">
    <string>Open a file to see ARTiC in action...</string>
