@@ -58,30 +58,38 @@ void MainWindow::importFile(QString importFile){
       QString numOfFunctions = QString("Number of functions found: %1").arg(QTVisualizer::get_functions()->size());
       ui->textBrowser->append(numOfFunctions);
 
-      //Print the tree!
+      //Obtain the information from the model to visualize in the different visualizators
+
+      //Initializing stuff for the treeview and setting up the functions
       QTreeWidgetItem* item;
       QTreeWidgetItem* functions_node = new QTreeWidgetItem();
       functions_node->setText(0, "Functions:");
       ui->treeWidget->addTopLevelItem(functions_node);
       int i_param = 0;
+      //Read all the functions
       for (int i = 0; i < QTVisualizer::get_functions()->size(); ++i){
-        //ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
-
+        //Send the function to the openGL visualizer
         ui->myGLWidget->push_function(QTVisualizer::get_functions()->at(i));
+        //Send the function to the text visualizer
+        item->setText(0, QTVisualizer::get_functions()->at(i)->data());
+        //Initializing variable for the treeview
         item = new QTreeWidgetItem();
         functions_node->addChild(item);
-        item->setText(0, QTVisualizer::get_functions()->at(i)->data());
         int num_params = QTVisualizer::get_num_params()->at(i);
         QTreeWidgetItem* new_param;
+        //Preparing the information to be writen in the text
         QString Qnum_params;
         Qnum_params = " => ";
         Qnum_params.append(QString::number(QTVisualizer::get_num_params()->at(i)));
         Qnum_params.append(" params : ( ");
+        //Checking the parameters of the function
         for (int j = 0; j < num_params; ++j){
+          //Send the parameters to the openGL
+          ui->myGLWidget->push_params(QTVisualizer::get_params()->at(i_param + j));
+          //Write the params on the tree
           new_param = new QTreeWidgetItem();
           item->addChild(new_param);
           new_param->setText(0, QString("Param--> %1").arg(QTVisualizer::get_params()->at(i_param + j)->data()));
-          ui->myGLWidget->push_params(QTVisualizer::get_params()->at(i_param + j));
           Qnum_params.append(QTVisualizer::get_params()->at(i_param + j)->data());
           if (j < num_params - 1)
             Qnum_params.append(" , ");
