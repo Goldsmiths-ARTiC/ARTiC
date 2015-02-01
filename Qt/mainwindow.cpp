@@ -55,7 +55,7 @@ void MainWindow::importFile(QString importFile){
 
       //get the number of functions that have been read from the ASTParser
       QString numOfFunctions = QString("Number of functions found: %1").arg(QTVisualizer::get_functions()->size());
-      ui->textBrowser->append(numOfFunctions); 
+      ui->textBrowser->append(numOfFunctions);
 
       //Print the tree!
       QTreeWidgetItem* item;
@@ -65,19 +65,28 @@ void MainWindow::importFile(QString importFile){
       int i_param = 0;
       for (int i = 0; i < QTVisualizer::get_functions()->size(); ++i){
         //ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
-        //ui->textBrowser->append(QString(QTVisualizer::get_functions()->at(i)->data()) + " --- Parameters found: " + QString(QTVisualizer::get_params()->at(i)->data()));
+
         ui->myGLWidget->push_function(QTVisualizer::get_functions()->at(i));
         item = new QTreeWidgetItem();
         functions_node->addChild(item);
         item->setText(0, QTVisualizer::get_functions()->at(i)->data());
         int num_params = QTVisualizer::get_num_params()->at(i);
         QTreeWidgetItem* new_param;
+        QString Qnum_params;
         for (int j = 0; j < num_params; ++j){
           new_param = new QTreeWidgetItem();
           item->addChild(new_param);
           new_param->setText(0, QString("Param--> %1").arg(QTVisualizer::get_params()->at(i_param + j)->data()));
           ui->myGLWidget->push_params(QTVisualizer::get_params()->at(i_param + j));
+          Qnum_params = QString::number(QTVisualizer::get_num_params()->at(i));
         }
+        if (num_params > 0){
+          ui->textBrowser->append(QString(QTVisualizer::get_functions()->at(i)->data()) + " --- Parameters found: " + Qnum_params + " (" + QString(QTVisualizer::get_params()->at(i_param)->data()) + ") ");
+        }
+        else{
+          ui->textBrowser->append(QTVisualizer::get_functions()->at(i)->data());
+        }
+        Qnum_params.clear();
         i_param += num_params;
       }
 
