@@ -5,6 +5,7 @@
 
 #include <QGLWidget>
 
+#include "blobs.h"
 /// @brief This MyGLWidget is our own widget made with the QGLWidget base.
 ///   Due to the time of the projects, we've opted to used this interface and
 ///   this module that will let us draw simple forms and objects in openGL
@@ -73,6 +74,8 @@ private:
 
   //Basic information of the code 
   std::vector<std::string*> func_list;
+
+  std::vector<FunctionBlob*> blobs;
 
   std::vector<std::string*> variable_list;
 };

@@ -17,9 +17,9 @@ protected:
 public:
   Blob() : x(0), y(0), z(0), size(0), drawable(false), hover_words(true), name(nullptr) { }
 
-  virtual ~Blob() = 0;
+  ~Blob();
 
-  virtual void Draw(QGLWidget* openGL_space) = 0;
+  void Draw(QGLWidget* openGL_space);
 
   void DrawBlock(QGLWidget* openGL_space){
     float scale_size = size*0.4f;
@@ -58,7 +58,7 @@ public:
     //Draw the tag
     if (hover_words)
       glDisable(GL_DEPTH_TEST);
-    openGL_space->renderText(0.5f, 0.0f, 0.0f, name->data());
+    openGL_space->renderText(half_size, 0.0f, 0.0f, name->data());
     if (hover_words)
       glEnable(GL_DEPTH_TEST);
   }
@@ -81,7 +81,7 @@ public:
 class ParamBlob;
 
 ///This is the function blob, it inherits information from the blob to be drawn
-class FunctionBlob : Blob{
+class FunctionBlob : public Blob{
   std::string* return_type;
   int level_detail;
   std::vector<ParamBlob*> parameters;
@@ -90,9 +90,10 @@ public:
   FunctionBlob(){
     drawable = false;
     level_detail = 0;
+    size = 1.0f;
   }
 
-  void Draw(QGLWidget* openGL_space) override{
+  void Draw(QGLWidget* openGL_space){
     if (drawable){
       glPushMatrix();
       glTranslatef(x, y, z);
@@ -118,9 +119,10 @@ class ParamBlob : Blob{
 public:
   ParamBlob(){
     drawable = false;
+    size = 0.5f;
   }
 
-  void Draw(QGLWidget* openGL_space) override{
+  void Draw(QGLWidget* openGL_space) {
     if (drawable){
       glPushMatrix();
       //This will draw the function name and the block

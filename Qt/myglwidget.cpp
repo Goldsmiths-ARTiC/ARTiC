@@ -4,7 +4,6 @@
 #include <QtOpenGL>
 
 #include "myglwidget.h"
-#include "blobs.h"
 
 MyGLWidget::MyGLWidget(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
@@ -181,13 +180,16 @@ void MyGLWidget::draw()
   //We start drawing things
   //We have now to change this to read from the current functions, and set it up as a function to draw functions!
   glPushMatrix();
+  for (FunctionBlob * blob : blobs){
+    blob->Draw(this);
+  }
   for (std::string* func_name : func_list){
     draw_function(func_name);
-    glTranslatef(0.0f, -0.5f, 0.0f);
+    glTranslatef(0.0f, -0.5f, 2.0f);
   }
   for (std::string* variable_name : variable_list){
     draw_v(variable_name);
-      glTranslatef(0.0f, -0.5f, 0.0f);
+      glTranslatef(0.0f, -0.5f, 2.0f);
     }
   glPopMatrix();
 }
@@ -287,6 +289,11 @@ void MyGLWidget::draw_variable(float size){
 //This is to push a new function!
 void MyGLWidget::push_function(std::string * name){
   func_list.push_back(name);
+
+  FunctionBlob* new_blob = new FunctionBlob();
+  new_blob->SetName(name);
+  new_blob->SetPos(0.0f, 2.0f - blobs.size()*0.5f, 0.0f);
+  blobs.push_back(new_blob);
 }
 
 //This is to push a new variable!

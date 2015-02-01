@@ -80,6 +80,7 @@ public:
       }
       fullFunctionS.append(" )");
     }
+    funcsandparams_.push_back(fullFunctionS);
     num_params_.push_back(func->getNumParams());
 
   }
