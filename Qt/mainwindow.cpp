@@ -128,8 +128,9 @@ void MainWindow::on_actionImport_file_triggered()
 
 void MainWindow::on_actionExport_file_triggered()
 {
-  QString file = QFileDialog::getSaveFileName(this, "Save as...", "name", "PNG (*.png);; BMP (*.bmp);;TIFF (*.tiff *.tif);; JPEG (*.jpg *.jpeg)");
-  ui->myGLWidget->grab().save(file);
+  QString file = QFileDialog::getSaveFileName(this, "Save as...", "name", "PNG (*.png)");
+  QImage img = ui->myGLWidget->grabFrameBuffer();
+  img.save(file);
 }
 
 void MainWindow::on_actionExit_application_triggered()
