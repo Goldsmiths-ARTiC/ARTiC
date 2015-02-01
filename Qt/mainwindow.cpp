@@ -88,10 +88,6 @@ void MainWindow::importFile(QString importFile){
         ui->myGLWidget->push_variable(QTVisualizer::get_variables()->at(i));
       }
 
-      /*for (int i = 0; i < QTVisualizer::get_params()->size(); ++i){
-        ui->textBrowser->append(QTVisualizer::get_params()->at(i)->data());
-      }*/
-      //----- This part should be encapsulated, as it's a process of 'interpreting' the imported model of the AST ------//
     }
   }
   else{
