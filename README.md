@@ -31,9 +31,9 @@ How to compile this project!:
           Be sure that you install the msvc2013_opengl compiler version!!!!!!!
 
 5) Place into the \Qt\QtIncludes folder the following folders from the Qt installation folder ("Qt\5.4\msvc2013_opengl"):
-mkspecs
-include
-lib
+          mkspecs
+          include
+          lib
 
 6) Place the dll files from the folder \Qt\release into the folder \ARTiC\ARTiC\Release
 
