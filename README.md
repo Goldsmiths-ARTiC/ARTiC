@@ -27,12 +27,14 @@ How to compile this project!:
           include
           lib
 6) Place the dll files from the folder \Qt\release into the folder \ARTiC\ARTiC\Release
+
           Qt5Core.dll	
           Qt5Gui.dll	
           Qt5OpenGL.dll	
           Qt5Widgets.dll	
           icuin53.dll	
           icuuc53.dll
+          
 7) The solution of the project is \ARTiC\ARTiC.sln
 8) The Qt project (to edit from the Qt Creator in case than needed is: Qt\UI.pro)
 
