@@ -12,20 +12,29 @@ There are future ideas for this project, as evolve it (changing the user interfa
 How to compile this project!:
 
 1) Download llvm to the \llvm folder
+
           cd llvm
           %  git clone http://llvm.org/git/llvm.git
+
 2) Download clang to the \llvm\tools folder
+
           cd llvm/tools
           % git clone http://llvm.org/git/clang.git
+
 3) Build LLVM into the \build folder using CMAKE (you may have to download it as well!).
+
           Check this webpage! http://llvm.org/docs/CMake.html
+
 4) Download Qt 5.4 (the community version!)
+
           http://www.qt.io/download/
           Be sure that you install the msvc2013_opengl compiler version!!!!!!!
+
 5) Place into the \Qt\QtIncludes folder the following folders from the Qt installation folder ("Qt\5.4\msvc2013_opengl"):
-          mkspecs
-          include
-          lib
+mkspecs
+include
+lib
+
 6) Place the dll files from the folder \Qt\release into the folder \ARTiC\ARTiC\Release
 
           Qt5Core.dll	
@@ -35,7 +44,9 @@ How to compile this project!:
           icuin53.dll	
           icuuc53.dll
           
+
 7) The solution of the project is \ARTiC\ARTiC.sln
+
 8) The Qt project (to edit from the Qt Creator in case than needed is: Qt\UI.pro)
 
 
