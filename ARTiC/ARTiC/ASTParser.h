@@ -31,9 +31,9 @@ public:
         TheController::Instance()->GetVisualizer()->Init();
         rewriter.setSourceMgr(astContext->getSourceManager(), astContext->getLangOpts());
         //Just in the start of the ASTProcess, we open the buffer of the source code and send it to the visualizer
-          //This line gets a pointer to the buffer
+        //This line gets a pointer to the buffer
         llvm::MemoryBuffer* buffer = astContext->getSourceManager().getBuffer(rewriter.getSourceMgr().getMainFileID());
-          //This line calls to the function from the given visualizer asking for the code
+        //This line calls to the function from the given visualizer asking for the code
         TheController::Instance()->CallFunc(TypeEnum::Source_Code, buffer);
     }
 
@@ -69,8 +69,7 @@ public:
 
 class ARTiCASTConsumer : public ASTConsumer {
 private:
-  ARTiCVisitor *visitor; // doesn't have to be private
-
+  ARTiCVisitor *visitor; 
 public:
     // override the constructor in order to pass CI
   explicit ARTiCASTConsumer(CompilerInstance *CI)
@@ -81,8 +80,6 @@ public:
     virtual void HandleTranslationUnit(ASTContext &Context) {
         /* we can use ASTContext to get the TranslationUnitDecl, which is
         a single Decl that collectively represents the entire source file */
-        //printf("AST reading begins ...now!\n");
-
         visitor->TraverseDecl(Context.getTranslationUnitDecl());
     }
 };
